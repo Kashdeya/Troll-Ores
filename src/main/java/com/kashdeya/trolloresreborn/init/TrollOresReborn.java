@@ -1,8 +1,15 @@
 package com.kashdeya.trolloresreborn.init;
 
+import com.kashdeya.trolloresreborn.blocks.TrollBlock;
+import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
+import com.kashdeya.trolloresreborn.proxy.CommonProxy;
+import com.kashdeya.trolloresreborn.ref.Reference;
+
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -10,12 +17,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import com.kashdeya.trolloresreborn.blocks.TrollBlock;
-import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
-import com.kashdeya.trolloresreborn.proxy.CommonProxy;
-import com.kashdeya.trolloresreborn.ref.Reference;
+import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 
@@ -29,6 +33,18 @@ public class TrollOresReborn {
 	
 	public static Block oreTrollOre = new TrollBlock();
 	
+	@SubscribeEvent 
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		IForgeRegistry<Block> registry = event.getRegistry();
+		registry.register(oreTrollOre);
+	}
+	
+	@SubscribeEvent public static void registerItems(RegistryEvent.Register<Item> event) {
+		IForgeRegistry<Item> registry = event.getRegistry();
+		
+		registry.register(new ItemBlock(oreTrollOre).setRegistryName(oreTrollOre.getRegistryName()));
+	}
+	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent e) {
 		ConfigHandler.initOreConfigs();
@@ -37,8 +53,6 @@ public class TrollOresReborn {
 
     @EventHandler
     public void init(FMLInitializationEvent e) {
-    	GameRegistry.register(oreTrollOre, new ResourceLocation(Reference.MOD_ID + ":troll_ore"));
-    	GameRegistry.register(new ItemBlock(oreTrollOre), new ResourceLocation(Reference.MOD_ID + ":troll_ore"));
     	proxy.registerRenderers();
     }
 

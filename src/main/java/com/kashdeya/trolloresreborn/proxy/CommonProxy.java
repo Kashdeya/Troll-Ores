@@ -1,10 +1,10 @@
 package com.kashdeya.trolloresreborn.proxy;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-
 import com.kashdeya.trolloresreborn.handlers.EventHandler;
 import com.kashdeya.trolloresreborn.world.WorldGen;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class CommonProxy {
 	

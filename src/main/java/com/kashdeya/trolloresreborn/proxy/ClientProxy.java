@@ -1,14 +1,14 @@
 package com.kashdeya.trolloresreborn.proxy;
 
+import com.kashdeya.trolloresreborn.init.TrollOresReborn;
+import com.kashdeya.trolloresreborn.ref.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
-import com.kashdeya.trolloresreborn.ref.Reference;
 
 public class ClientProxy extends CommonProxy {
 
