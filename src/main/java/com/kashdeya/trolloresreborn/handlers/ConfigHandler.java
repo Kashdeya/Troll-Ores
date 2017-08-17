@@ -25,11 +25,10 @@ public class ConfigHandler {
 		config.addCustomCategoryComment(category + "Main Settings", "");
         ConfigSettings.extraOres.clear();
         ConfigSettings.extraOres.addAll(Arrays.asList(config.getStringList("Extra Ores", category + "Main Settings", new String[]{}, "Additional blocks that should be treated as 'Troll Ores'.. EXAMPLE = 'minecraft:dirt'")));
-        ConfigSettings.chance = config.getFloat("Chance of Troll Ore", category + "Main Settings", 0.1F, 0.0F, 1.0F, "Chance a random Ore will be a Troll.\nDefault is 10%");
+        ConfigSettings.chance = config.getFloat("Troll Ores", category + "Main Settings", 0.1F, 0.0F, 1.0F, "Chance a random Ore will be a Troll");
         ConfigSettings.fakePlayers = config.getBoolean("Enable Fake Players", category + "Main Settings", false, "Enable machines acting as player to trigger Troll Ores!");
         ConfigSettings.fortuneMult = config.getBoolean("Fortune Multiplier", category + "Main Settings", true, "Fortune enchantments multiply the chance of triggering a Troll ore!");
         ConfigSettings.silkImmunity = config.getBoolean("Silk Touch Immunity", category + "Main Settings", true, "Using silk touch on ores prevents triggering Troll Ores!");
-        
         // Silverfish
         config.addCustomCategoryComment(category + "Silverfish", "");
         ConfigSettings.silverfishSpawn = config.getInt("Silverfish", category + "Silverfish", 1, 1, Integer.MAX_VALUE, "How many Silverfish spawns from Troll Ores");

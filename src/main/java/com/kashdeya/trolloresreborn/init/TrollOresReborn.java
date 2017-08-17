@@ -1,5 +1,10 @@
 package com.kashdeya.trolloresreborn.init;
 
+import com.kashdeya.trolloresreborn.blocks.TrollBlock;
+import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
+import com.kashdeya.trolloresreborn.proxy.CommonProxy;
+import com.kashdeya.trolloresreborn.ref.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
@@ -11,11 +16,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import com.kashdeya.trolloresreborn.blocks.TrollBlock;
-import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
-import com.kashdeya.trolloresreborn.proxy.CommonProxy;
-import com.kashdeya.trolloresreborn.ref.Reference;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 

@@ -1,20 +1,18 @@
 package com.kashdeya.trolloresreborn.handlers;
 
+import java.util.Random;
+
+import com.kashdeya.trolloresreborn.init.TrollOresReborn;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Random;
-
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 
 public class EventHandler {
 	
@@ -66,7 +64,7 @@ public class EventHandler {
 					EntitySilverfish fish = new EntitySilverfish(event.getWorld());
 					BlockPos pos = event.getPos();
 					fish.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-					event.getWorld().spawnEntityInWorld(fish);
+					event.getWorld().spawnEntity(fish);
 					if (ConfigSettings.fishExplosion){
 						fish.spawnExplosionParticle();
 					}
@@ -86,7 +84,7 @@ public class EventHandler {
 					EntityWither wither = new EntityWither(event.getWorld());
 					BlockPos pos = event.getPos();
 					wither.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-					event.getWorld().spawnEntityInWorld(wither);
+					event.getWorld().spawnEntity(wither);
 					if (ConfigSettings.witherIgnite){
 						wither.ignite();
 					}
