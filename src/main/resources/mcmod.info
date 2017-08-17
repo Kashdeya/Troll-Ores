@@ -1,0 +1,16 @@
+[
+{
+  "modid": "trolloresreborn",
+  "name": "trolloresreborn",
+  "description": "Adds Troll Ores to the world.",
+  "version": "2.0.2",
+  "mcversion": "1.10.2",
+  "url": "https://minecraft.curseforge.com/projects/troll-ores-reborn",
+  "updateUrl": "",
+  "authorList": ["Kashdeya"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
