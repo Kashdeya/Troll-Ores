@@ -1,22 +1,20 @@
 package com.kashdeya.trolloresreborn.handlers;
 
+import java.util.Random;
+
+import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
+import com.kashdeya.trolloresreborn.init.TrollOresReborn;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Random;
-
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
-
-public class EventHandler {
+public class TOREventHandler {
 	
 	public World lastWorld;
 	public int lastX = 0;
@@ -53,7 +51,7 @@ public class EventHandler {
 				}
 			}
 
-			if(flag && (event.getState().getBlock() == TrollOresReborn.oreTrollOre || event.getWorld().rand.nextFloat() < ConfigSettings.chance * (ConfigSettings.fortuneMult? event.getFortuneLevel() + 1F : 1F)))
+			if(flag && (event.getState().getBlock() == TrollOresReborn.TROLL_ORE || event.getWorld().rand.nextFloat() < ConfigSettings.chance * (ConfigSettings.fortuneMult? event.getFortuneLevel() + 1F : 1F)))
 			{
 				Random rand = new Random();
 				int low = 0;
@@ -63,7 +61,8 @@ public class EventHandler {
 				if ((results  <= ConfigSettings.silverfishpercent) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
 	        	{
 					for (int i = 0; i < ConfigSettings.silverfishSpawn; i++) {
-					EntitySilverfish fish = new EntitySilverfish(event.getWorld());
+					//EntitySilverfish fish = new EntitySilverfish(event.getWorld());
+					EntityOreTroll fish = new EntityOreTroll(event.getWorld());
 					BlockPos pos = event.getPos();
 					fish.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
 					event.getWorld().spawnEntityInWorld(fish);

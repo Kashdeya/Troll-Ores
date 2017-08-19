@@ -1,40 +1,25 @@
 package com.kashdeya.trolloresreborn.proxy;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
+import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
+import com.kashdeya.trolloresreborn.entity.render.RenderOreTroll;
 import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 import com.kashdeya.trolloresreborn.ref.Reference;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+
 public class ClientProxy extends CommonProxy {
 
-    @Override
-	public boolean isClient()
-	{
+	@Override
+	public boolean isClient() {
 		return true;
 	}
-	
+
 	@Override
-	public void registerHandlers()
-	{
-		super.registerHandlers();
+	public void registerRenderers() {
+		ModelLoader.setCustomModelResourceLocation(TrollOresReborn.TROLL_ORE_ITEM, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + "troll_ore", "inventory"));
+		RenderingRegistry.registerEntityRenderingHandler(EntityOreTroll.class, RenderOreTroll::new);
 	}
-	
-	@Override
-	public void registerRenderers()
-	{
-		super.registerRenderers();
-		
-		registerBlockModel(TrollOresReborn.oreTrollOre);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public static void registerBlockModel(Block block)
-	{
-	    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(Reference.MOD_ID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
-	}
+
 }

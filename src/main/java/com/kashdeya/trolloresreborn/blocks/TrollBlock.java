@@ -10,25 +10,21 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TrollBlock extends Block {
-	
-	public TrollBlock()
-	{
+
+	public TrollBlock() {
 		super(Material.ROCK);
 		this.setHardness(1F);
 		this.setResistance(5F);
-		this.setUnlocalizedName("troll_ore");
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
-	
+
 	@Override
-	public int quantityDropped(Random rand)
-	{
+	public int quantityDropped(Random rand) {
 		return 0;
 	}
-	
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
-    }
+
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
+	}
 }
