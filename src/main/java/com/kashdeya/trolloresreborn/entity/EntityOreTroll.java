@@ -122,7 +122,7 @@ public class EntityOreTroll extends EntityMob {
 
 		@Override
 		protected double getAttackReachSqr(EntityLivingBase attackTarget) {
-			return (double) (4.0F + attackTarget.width);
+			return (double) (2.0F + attackTarget.width);
 		}
 	}
 
