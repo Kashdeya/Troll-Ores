@@ -24,16 +24,16 @@ public class TOREventHandler {
 	@SubscribeEvent
 	public void onHarvest(HarvestDropsEvent event)
 	{
-		if(event.isSilkTouching() && ConfigSettings.silkImmunity)
+		if(event.isSilkTouching() && ConfigHandler.SILK_IMMUNITY)
 		{
 			return;
 		}
 		
 		String blockID = Block.REGISTRY.getNameForObject(event.getState().getBlock()).toString();
 		int blockMeta = event.getState().getBlock().getMetaFromState(event.getState());
-		boolean custom = ConfigSettings.extraOres.contains(blockID) || ConfigSettings.extraOres.contains(blockID + ":" + blockMeta);
+		boolean custom = ConfigHandler.EXTRA_ORES.contains(blockID) || ConfigHandler.EXTRA_ORES.contains(blockID + ":" + blockMeta);
 		
-		if(!event.getWorld().isRemote && event.getHarvester() != null && (ConfigSettings.fakePlayers || !(event.getHarvester() instanceof FakePlayer)))
+		if(!event.getWorld().isRemote && event.getHarvester() != null && (ConfigHandler.FAKE_PLAYERS || !(event.getHarvester() instanceof FakePlayer)))
 		{
 			String[] nameParts = event.getState().getBlock().getUnlocalizedName().split("\\.");
 			
@@ -51,49 +51,48 @@ public class TOREventHandler {
 				}
 			}
 
-			if(flag && (event.getState().getBlock() == TrollOresReborn.TROLL_ORE || event.getWorld().rand.nextFloat() < ConfigSettings.chance * (ConfigSettings.fortuneMult? event.getFortuneLevel() + 1F : 1F)))
+			if(flag && (event.getState().getBlock() == TrollOresReborn.TROLL_ORE || event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F)))
 			{
 				Random rand = new Random();
 				int low = 0;
 				int high = 100;
 				int results = rand.nextInt(high-low) + low;
 				
-				if ((results  <= ConfigSettings.silverfishpercent) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
+				if ((results  <= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
 	        	{
-					for (int i = 0; i < ConfigSettings.silverfishSpawn; i++) {
-					//EntitySilverfish fish = new EntitySilverfish(event.getWorld());
-					EntityOreTroll fish = new EntityOreTroll(event.getWorld());
+					for (int i = 0; i < ConfigHandler.TROLL_SPAWN; i++) {
+					EntityOreTroll troll = new EntityOreTroll(event.getWorld());
 					BlockPos pos = event.getPos();
-					fish.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-					event.getWorld().spawnEntityInWorld(fish);
-					if (ConfigSettings.fishExplosion){
-						fish.spawnExplosionParticle();
+					troll.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
+					event.getWorld().spawnEntityInWorld(troll);
+					if (ConfigHandler.TROLL_EXPLOSION){
+						troll.spawnExplosionParticle();
 					}
-					if (ConfigSettings.fishSprinting){
-						fish.setSprinting(true);
-						fish.isSprinting();
+					if (ConfigHandler.TROLL_SPRINTING){
+						troll.setSprinting(true);
+						troll.isSprinting();
 					}
-					if (ConfigSettings.silentFish){
-						fish.setSilent(true);
+					if (ConfigHandler.SILENT_TROLL){
+						troll.setSilent(true);
 					}
-					fish.setCustomNameTag(ConfigSettings.silverfishName);
-					fish.getAlwaysRenderNameTag();
+					troll.setCustomNameTag(ConfigHandler.TROLL_NAME);
+					troll.getAlwaysRenderNameTag();
 					}
 	        	}
-				else if ((results >= ConfigSettings.silverfishpercent) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigSettings.enableWither)
+				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
 	        	{
 					EntityWither wither = new EntityWither(event.getWorld());
 					BlockPos pos = event.getPos();
 					wither.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
 					event.getWorld().spawnEntityInWorld(wither);
-					if (ConfigSettings.witherIgnite){
+					if (ConfigHandler.WITHER_IGNITE){
 						wither.ignite();
 					}
 					wither.renderYawOffset = 75.0F;
-					if (ConfigSettings.silentWither){
+					if (ConfigHandler.SILENT_WITHER){
 						wither.setSilent(true);
 					}
-					wither.setCustomNameTag(ConfigSettings.witherName);
+					wither.setCustomNameTag(ConfigHandler.WITHER_NAME);
 					wither.getAlwaysRenderNameTag();
 	        	}
 			}
