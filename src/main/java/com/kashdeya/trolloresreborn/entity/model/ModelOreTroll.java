@@ -236,6 +236,7 @@ public class ModelOreTroll extends ModelBase {
 		EntityOreTroll troll = (EntityOreTroll) entity;
 		float swing = MathHelper.sin(limbSwing * 0.7F) * 1.2F * limbSwingAngle;
 		float flap = MathHelper.sin((troll.ticksExisted) * 0.3F) * 0.8F;
+		float flapJaw = MathHelper.sin((troll.ticksExisted) * 0.6F) * 0.8F;
 		
 		tail_1.rotateAngleZ = flap *0.2F;
 		tail_2.rotateAngleZ = flap *0.2F;
@@ -245,23 +246,42 @@ public class ModelOreTroll extends ModelBase {
 		tail_2.rotateAngleX = 0.2617993877991494F - swing * 0.5F;
 		tail_3.rotateAngleX = 0.2617993877991494F - swing * 0.75F;
 
-		left_arm_1.rotateAngleX = -0.1981317007977318F - swing;
-		right_arm_1.rotateAngleX = -0.1981317007977318F + swing;
+		left_arm_1.rotateAngleZ = 0F + flap * 0.125F;
+		right_arm_1.rotateAngleZ = 0F - flap * 0.125F;
+		
+		left_arm_2.rotateAngleX = -0.9599310885968813F + flap * 0.3125F - swing;
+		right_arm_2.rotateAngleX = -0.9599310885968813F - flap * 0.3125F + swing;
 
-		left_arm_1.rotateAngleY = -0.3981317007977318F + flap * 0.03125F;
-		right_arm_1.rotateAngleY = 0.3981317007977318F - flap * 0.03125F;
+		left_arm_1.rotateAngleY = -0.3981317007977318F + flap * 0.0625F;
+		right_arm_1.rotateAngleY = 0.3981317007977318F - flap * 0.0625F;
 
-		right_leg_1.rotateAngleX = -swing * 0.125F - swing;
-		left_leg1.rotateAngleX = swing * 0.125F + swing;
+		right_leg_1.rotateAngleX = -0.08726646259971647F - swing * 1.5F;
+		left_leg1.rotateAngleX = -0.08726646259971647F  + swing * 1.5F;
 
-		right_leg_2.rotateAngleX = -0.6806784082777886F + swing * 0.5F;
-		left_leg_2.rotateAngleX = -0.6806784082777886F - swing * 0.5F;
+		right_leg_2.rotateAngleX = -0.3806784082777886F + swing * 1.5F;
+		left_leg_2.rotateAngleX = -0.3806784082777886F - swing * 1.5F;
 
-		head_main.rotateAngleX = -0.6108652381980153F + flap * 0.025F;
-		body_main.rotateAngleX = -0.045553093477052F - flap * 0.025F;
+		head_main.rotateAngleX = -0.6108652381980153F + flap * 0.05F;
+		
+		body_main.rotateAngleX = -0.045553093477052F - flap * 0.05F;
+		body_main.rotateAngleY = 0F + swing * 0.5F;
+
 		bum.rotateAngleX = 0.6108652381980153F - swing * 0.125F;
-		bum.rotateAngleZ = 0 - swing * 0.125F;
-		jaw_bottom.rotateAngleX = 0.5235987755982988F + flap * 0.2F;
+		bum.rotateAngleY = 0F - swing * 1F;
+		
+		jaw_bottom.rotateAngleX = 0.5235987755982988F + flapJaw * 0.2F;
+		
+		left_finger_in.rotateAngleX = 0.5235987755982988F - flap * 0.5F;
+		left_finger_out.rotateAngleX = 0.5235987755982988F - flap * 0.5F;
+		
+		right_finger_in.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
+		right_finger_out.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
+		
+		left_thumb.rotateAngleZ = 2.443460952792061F + flap * 0.5F;
+		right_thumb.rotateAngleZ = 0.6981317007977318F + flap * 0.5F;
+		
+		left_hand.rotateAngleX = 0.625F - flap * 0.2F;
+		right_hand.rotateAngleX = 0.625F + flap * 0.2F;
 	}
 
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
