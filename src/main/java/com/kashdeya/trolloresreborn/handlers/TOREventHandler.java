@@ -61,24 +61,27 @@ public class TOREventHandler {
 				if ((results  <= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
 	        	{
 					for (int i = 0; i < ConfigHandler.TROLL_SPAWN; i++) {
-					EntityOreTroll troll = new EntityOreTroll(event.getWorld());
-					BlockPos pos = event.getPos();
-					troll.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-					event.getWorld().spawnEntityInWorld(troll);
-					if (ConfigHandler.TROLL_EXPLOSION){
-						troll.spawnExplosionParticle();
+						EntityOreTroll troll = new EntityOreTroll(event.getWorld());
+						BlockPos pos = event.getPos();
+						troll.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
+						event.getWorld().spawnEntityInWorld(troll);
+						if (ConfigHandler.TROLL_EXPLOSION) {
+							troll.spawnExplosionParticle();
+						}
+						if (ConfigHandler.TROLL_SPRINTING) {
+							troll.setSprinting(true);
+							troll.isSprinting();
+						}
+						if (ConfigHandler.SILENT_TROLL) {
+							troll.setSilent(true);
+						}
+						troll.setCustomNameTag(ConfigHandler.TROLL_NAME);
+						troll.getAlwaysRenderNameTag();
+						if (ConfigHandler.TROLL_EFFECTS) {
+							troll.setPotionEffect(Byte.valueOf((byte) rand.nextInt(9)));
+						}
 					}
-					if (ConfigHandler.TROLL_SPRINTING){
-						troll.setSprinting(true);
-						troll.isSprinting();
-					}
-					if (ConfigHandler.SILENT_TROLL){
-						troll.setSilent(true);
-					}
-					troll.setCustomNameTag(ConfigHandler.TROLL_NAME);
-					troll.getAlwaysRenderNameTag();
-					}
-	        	}
+				}
 				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
 	        	{
 					EntityWither wither = new EntityWither(event.getWorld());

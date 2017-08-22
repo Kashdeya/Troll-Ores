@@ -34,6 +34,8 @@ public class ConfigHandler {
 	public static String WITHER_NAME;
 	public static float TROLL_HEALTH;
 	public static float TROLL_ATTACK_DAMAGE;
+	public static boolean TROLL_EFFECTS;
+	public static int TROLL_EFFECTS_DURATION;
 
 	public void loadConfig(FMLPreInitializationEvent event) {
 		CONFIG = new Configuration(new File(CONFIG_DIR, "Troll Ores Reborn.cfg"));
@@ -62,6 +64,8 @@ public class ConfigHandler {
         TROLL_NAME = CONFIG.getString("Troll Name", "TOR-Ore Troll", "Vash_505", "Allows you to change the name of the Troll!");
         TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 10F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
+        TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
+        TROLL_EFFECTS_DURATION = CONFIG.getInt("Ore Troll Effects Duration", "TOR-Ore Troll", 5, 5, Integer.MAX_VALUE, "Duration Troll Potion Effects Last (Seconds)");
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");

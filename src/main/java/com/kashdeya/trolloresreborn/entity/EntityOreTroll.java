@@ -2,7 +2,9 @@ package com.kashdeya.trolloresreborn.entity;
 
 import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -16,17 +18,23 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
-public class EntityOreTroll extends EntityMob {
+public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnData {
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
+	private static final DataParameter<Byte> EFFECT = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
+	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25 };
 
 	public EntityOreTroll(World world) {
 		super(world);
@@ -39,6 +47,7 @@ public class EntityOreTroll extends EntityMob {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
+		dataManager.register(EFFECT, Byte.valueOf((byte) 2));
 	}
 
 	@Override
@@ -92,6 +101,50 @@ public class EntityOreTroll extends EntityMob {
 		else
 			climingState = (byte) (climingState & -2);
 		dataManager.set(CLIMBING, Byte.valueOf(climingState));
+	}
+
+	@Override
+	public boolean attackEntityAsMob(Entity entity) {
+		if (super.attackEntityAsMob(entity)) {
+			if (entity instanceof EntityLivingBase) {
+				int duration = ConfigHandler.TROLL_EFFECTS_DURATION;
+				if (ConfigHandler.TROLL_EFFECTS)
+					if (duration > 0)
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.getPotionById(POTION_IDS[getPotionEffect()]), duration * 20, 0));
+			}
+			return true;
+		} else
+			return false;
+	}
+
+	public byte getPotionEffect() {
+		return ((Byte) dataManager.get(EFFECT)).byteValue();
+	}
+
+	public void setPotionEffect(byte type) {
+		dataManager.set(EFFECT, Byte.valueOf(type));
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		nbt.setByte("effect", getPotionEffect());
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		setPotionEffect(nbt.getByte("effect"));
+	}
+
+	@Override
+	public void writeSpawnData(ByteBuf data) {
+		data.writeByte(getPotionEffect());
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf data) {
+		setPotionEffect(data.readByte());
 	}
 
 	@Override
