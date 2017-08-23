@@ -3,6 +3,7 @@ package com.kashdeya.trolloresreborn.entity;
 import javax.annotation.Nullable;
 
 import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
+import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -140,7 +141,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 
 		setCustomNameTag(ConfigHandler.TROLL_NAME);
 		getAlwaysRenderNameTag();
-
+		playLivingSound();
 		return livingdata;
 	}
 
@@ -176,22 +177,22 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.ENTITY_SILVERFISH_AMBIENT;
+		return TrollOresReborn.TROLL_LIVING;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound() {
-		return SoundEvents.ENTITY_SILVERFISH_HURT;
+		return TrollOresReborn.TROLL_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_SILVERFISH_DEATH;
+		return TrollOresReborn.TROLL_DEATH;
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
-		playSound(SoundEvents.ENTITY_SILVERFISH_STEP, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.15F, 1.0F);
 	}
 
 	static class AIMonsterAttack extends EntityAIAttackMelee {

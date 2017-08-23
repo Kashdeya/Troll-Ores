@@ -1,0 +1,20 @@
+{
+  "troll_living": {
+    "category": "hostile",
+    "sounds": [
+      "tor:troll_living"
+    ]
+  },
+  "troll_hurt": {
+    "category": "hostile",
+    "sounds": [
+      "tor:troll_hurt"
+    ]
+  },
+  "troll_death": {
+    "category": "hostile",
+    "sounds": [
+      "tor:troll_death"
+    ]
+  }
+}

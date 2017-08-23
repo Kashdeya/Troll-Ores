@@ -11,6 +11,8 @@ import com.kashdeya.trolloresreborn.world.WorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -33,6 +35,7 @@ public class TrollOresReborn {
 	public static CommonProxy PROXY;
 	public static Block TROLL_ORE;
 	public static Item TROLL_ORE_ITEM;
+	public static SoundEvent TROLL_LIVING, TROLL_HURT, TROLL_DEATH;
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -50,6 +53,12 @@ public class TrollOresReborn {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	TROLL_LIVING = new SoundEvent(new ResourceLocation(Reference.MOD_ID, "troll_living")).setRegistryName(Reference.MOD_ID, "troll_living");
+		GameRegistry.register(TROLL_LIVING);
+		TROLL_HURT = new SoundEvent(new ResourceLocation(Reference.MOD_ID, "troll_hurt")).setRegistryName(Reference.MOD_ID, "troll_hurt");
+		GameRegistry.register(TROLL_HURT);
+		TROLL_DEATH = new SoundEvent(new ResourceLocation(Reference.MOD_ID, "troll_death")).setRegistryName(Reference.MOD_ID, "troll_death");
+		GameRegistry.register(TROLL_DEATH);
     	MinecraftForge.EVENT_BUS.register(ConfigHandler.INSTANCE);
     	MinecraftForge.EVENT_BUS.register(new TOREventHandler());
     }
