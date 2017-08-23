@@ -1,11 +1,14 @@
 package com.kashdeya.trolloresreborn.entity;
 
+import javax.annotation.Nullable;
+
 import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -28,6 +31,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
@@ -107,14 +111,37 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public boolean attackEntityAsMob(Entity entity) {
 		if (super.attackEntityAsMob(entity)) {
 			if (entity instanceof EntityLivingBase) {
-				int duration = ConfigHandler.TROLL_EFFECTS_DURATION;
-				if (ConfigHandler.TROLL_EFFECTS)
+				if (ConfigHandler.TROLL_EFFECTS) {
+					int duration = ConfigHandler.TROLL_EFFECTS_DURATION;
 					if (duration > 0)
 						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.getPotionById(POTION_IDS[getPotionEffect()]), duration * 20, 0));
+				}
 			}
 			return true;
 		} else
 			return false;
+	}
+
+	@Override
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+
+		if (ConfigHandler.TROLL_SPRINTING) {
+			setSprinting(true);
+			isSprinting();
+		}
+
+		if (ConfigHandler.SILENT_TROLL)
+			setSilent(true);
+
+		if (ConfigHandler.TROLL_EFFECTS)
+			setPotionEffect(Byte.valueOf((byte) rand.nextInt(9)));
+
+		setCustomNameTag(ConfigHandler.TROLL_NAME);
+		getAlwaysRenderNameTag();
+
+		return livingdata;
 	}
 
 	public byte getPotionEffect() {

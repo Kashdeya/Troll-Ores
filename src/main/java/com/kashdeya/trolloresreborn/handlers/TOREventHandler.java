@@ -7,6 +7,7 @@ import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -68,18 +69,7 @@ public class TOREventHandler {
 						if (ConfigHandler.TROLL_EXPLOSION) {
 							troll.spawnExplosionParticle();
 						}
-						if (ConfigHandler.TROLL_SPRINTING) {
-							troll.setSprinting(true);
-							troll.isSprinting();
-						}
-						if (ConfigHandler.SILENT_TROLL) {
-							troll.setSilent(true);
-						}
-						troll.setCustomNameTag(ConfigHandler.TROLL_NAME);
-						troll.getAlwaysRenderNameTag();
-						if (ConfigHandler.TROLL_EFFECTS) {
-							troll.setPotionEffect(Byte.valueOf((byte) rand.nextInt(9)));
-						}
+						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
 				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
