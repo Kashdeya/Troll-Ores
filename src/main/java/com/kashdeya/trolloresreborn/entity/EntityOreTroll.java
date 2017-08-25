@@ -30,6 +30,9 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -44,7 +47,6 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public EntityOreTroll(World world) {
 		super(world);
 		setSize(0.9F, 0.9F);
-		isImmuneToFire = true;
 		experienceValue = 10;
 	}
 
@@ -121,6 +123,35 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 			return true;
 		} else
 			return false;
+	}
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float damage) {
+
+		if (source instanceof EntityDamageSourceIndirect && ConfigHandler.TROLL_IMMUNE_TO_PROJECTILE_DAMAGE) {
+			worldObj.playSound((EntityPlayer) null, posX, posY, posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundCategory.HOSTILE, 2.5F, 3F);
+			return false;
+		}
+
+		else if ((source == DamageSource.onFire || source == DamageSource.inFire || source == DamageSource.lava || source == DamageSource.hotFloor) && ConfigHandler.TROLL_IMMUNE_TO_FIRE_DAMAGE)
+			return false;
+
+		else if (source == DamageSource.inWall && ConfigHandler.TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE)
+			return false;
+
+		else if (source == DamageSource.fall && ConfigHandler.TROLL_IMMUNE_TO_FALL_DAMAGE)
+			return false;
+
+		else if (source == DamageSource.fallingBlock && ConfigHandler.TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE)
+			return false;
+
+		else if (source == DamageSource.cactus && ConfigHandler.TROLL_IMMUNE_TO_CACTUS_DAMAGE)
+			return false;
+
+		else if(!(source.getSourceOfDamage() instanceof EntityPlayer) && ConfigHandler.TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE)
+			return false;
+
+		return super.attackEntityFrom(source, damage);
 	}
 
 	@Override

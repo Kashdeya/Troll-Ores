@@ -37,7 +37,14 @@ public class ConfigHandler {
 	public static boolean TROLL_EFFECTS;
 	public static int TROLL_EFFECTS_DURATION;
 	public static float TROLL_FOLLOW_RANGE;
-
+	public static boolean TROLL_IMMUNE_TO_FIRE_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_FALL_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_PROJECTILE_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_CACTUS_DAMAGE;
+	public static boolean TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE;
+	
 	public void loadConfig(FMLPreInitializationEvent event) {
 		CONFIG = new Configuration(new File(CONFIG_DIR, "Troll Ores Reborn.cfg"));
 		CONFIG.load();
@@ -63,12 +70,19 @@ public class ConfigHandler {
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
         TROLL_NAME = CONFIG.getString("Troll Name", "TOR-Ore Troll", "Vash_505", "Allows you to change the name of the Troll!");
-        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 40F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
+        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 15F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
         TROLL_EFFECTS_DURATION = CONFIG.getInt("Ore Troll Effects Duration", "TOR-Ore Troll", 5, 5, Integer.MAX_VALUE, "Duration Troll Potion Effects Last (Seconds)");
         TROLL_FOLLOW_RANGE = CONFIG.getInt("Ore Troll Follow Distance", "TOR-Ore Troll", 32, 8, Integer.MAX_VALUE, "Allows you to change the Follow Distance of the Troll!");
-        
+        TROLL_IMMUNE_TO_FIRE_DAMAGE = CONFIG.getBoolean("Ore Troll Fire Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Fire Damage!");
+        TROLL_IMMUNE_TO_FALL_DAMAGE = CONFIG.getBoolean("Ore Troll Fall Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Fall Damage!");
+        TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE = CONFIG.getBoolean("Ore Troll Suffocation Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Suffocation Damage!");
+        TROLL_IMMUNE_TO_PROJECTILE_DAMAGE = CONFIG.getBoolean("Ore Troll Projectile Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Projectile Damage!");
+        TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE = CONFIG.getBoolean("Ore Troll Falling Block Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Falling Block Damage!");
+        TROLL_IMMUNE_TO_CACTUS_DAMAGE = CONFIG.getBoolean("Ore Troll Cactus Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Cactus Damage!");
+        TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage !");
+
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
         ENABLE_WITHER = CONFIG.getBoolean("Wither", "TOR-Wither", true, "Enable Wither to spawn from Troll Ores.\nPercent is set above!");
