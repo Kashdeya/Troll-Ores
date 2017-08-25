@@ -36,6 +36,7 @@ public class ConfigHandler {
 	public static float TROLL_ATTACK_DAMAGE;
 	public static boolean TROLL_EFFECTS;
 	public static int TROLL_EFFECTS_DURATION;
+	public static float TROLL_FOLLOW_RANGE;
 
 	public void loadConfig(FMLPreInitializationEvent event) {
 		CONFIG = new Configuration(new File(CONFIG_DIR, "Troll Ores Reborn.cfg"));
@@ -58,20 +59,21 @@ public class ConfigHandler {
         CONFIG.addCustomCategoryComment("TOR-Ore Troll", "");
         TROLL_SPAWN = CONFIG.getInt("Ore Troll", "TOR-Ore Troll", 1, 1, Integer.MAX_VALUE, "How many Ore Trolls spawns from Troll Ores");
         TROLL_PRECENT = CONFIG.getInt("Ore Troll Percent", "TOR-Ore Troll", 99, 0, 100, "Percent that Ore Troll will spawn, Withers will spawn above this #.\n(Example = 99 means Withers have a 1% chance to Spawn!)");
-        SILENT_TROLL = CONFIG.getBoolean("Ore Troll Silent", "TOR-Ore Troll", true, "Make Ore Trolls Silent!");
+        SILENT_TROLL = CONFIG.getBoolean("Ore Troll Silent", "TOR-Ore Troll", false, "Make Ore Trolls Silent!");
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
         TROLL_NAME = CONFIG.getString("Troll Name", "TOR-Ore Troll", "Vash_505", "Allows you to change the name of the Troll!");
-        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 10F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
+        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 40F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
         TROLL_EFFECTS_DURATION = CONFIG.getInt("Ore Troll Effects Duration", "TOR-Ore Troll", 5, 5, Integer.MAX_VALUE, "Duration Troll Potion Effects Last (Seconds)");
-
+        TROLL_FOLLOW_RANGE = CONFIG.getInt("Ore Troll Follow Distance", "TOR-Ore Troll", 32, 8, Integer.MAX_VALUE, "Allows you to change the Follow Distance of the Troll!");
+        
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
         ENABLE_WITHER = CONFIG.getBoolean("Wither", "TOR-Wither", true, "Enable Wither to spawn from Troll Ores.\nPercent is set above!");
         WITHER_IGNITE = CONFIG.getBoolean("Wither Ignite", "TOR-Wither", false, "Make Wither Ignite at spawn!");
-        SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", true, "Make Wither Silent!");
+        SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", false, "Make Wither Silent!");
         WITHER_NAME = CONFIG.getString("Wither Name", "TOR-Wither", "Prince of Darkness", "Allows you to change the name of the Wither!");
         
 		if (CONFIG.hasChanged())

@@ -39,7 +39,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnData {
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	private static final DataParameter<Byte> EFFECT = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
-	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25 };
+	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25, 27 };
 
 	public EntityOreTroll(World world) {
 		super(world);
@@ -58,7 +58,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAITrollLeap(this, 0.5F));
+		tasks.addTask(1, new EntityAITrollLeap(this, 0.55F));
 		tasks.addTask(2, new EntityOreTroll.AIMonsterAttack(this));
 		tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		tasks.addTask(4, new EntityAIWander(this, 1.0D));
@@ -73,7 +73,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)ConfigHandler.TROLL_ATTACK_DAMAGE);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
-		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
+		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double)ConfigHandler.TROLL_FOLLOW_RANGE);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)ConfigHandler.TROLL_HEALTH);
 	}
 
@@ -137,7 +137,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 			setSilent(true);
 
 		if (ConfigHandler.TROLL_EFFECTS)
-			setPotionEffect(Byte.valueOf((byte) rand.nextInt(9)));
+			setPotionEffect(Byte.valueOf((byte) rand.nextInt(10)));
 
 		setCustomNameTag(ConfigHandler.TROLL_NAME);
 		getAlwaysRenderNameTag();
