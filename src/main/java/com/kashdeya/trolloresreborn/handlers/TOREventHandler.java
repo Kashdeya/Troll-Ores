@@ -3,12 +3,12 @@ package com.kashdeya.trolloresreborn.handlers;
 import java.util.Random;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
+import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
 import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
@@ -66,27 +66,16 @@ public class TOREventHandler {
 						BlockPos pos = event.getPos();
 						troll.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
 						event.getWorld().spawnEntityInWorld(troll);
-						if (ConfigHandler.TROLL_EXPLOSION) {
-							troll.spawnExplosionParticle();
-						}
 						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
 				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
 	        	{
-					EntityWither wither = new EntityWither(event.getWorld());
+					EntitySmallWither wither = new EntitySmallWither(event.getWorld());
 					BlockPos pos = event.getPos();
 					wither.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
 					event.getWorld().spawnEntityInWorld(wither);
-					if (ConfigHandler.WITHER_IGNITE){
-						wither.ignite();
-					}
-					wither.renderYawOffset = 75.0F;
-					if (ConfigHandler.SILENT_WITHER){
-						wither.setSilent(true);
-					}
-					wither.setCustomNameTag(ConfigHandler.WITHER_NAME);
-					wither.getAlwaysRenderNameTag();
+					wither.onInitialSpawn(event.getWorld().getDifficultyForLocation(wither.getPosition()), (IEntityLivingData) null);
 	        	}
 			}
 		}

@@ -31,9 +31,13 @@ public class ConfigHandler {
 	public static boolean TROLL_SPRINTING;
 	public static boolean FORTUNE_MULTIPLIER;
 	public static String[] TROLL_NAME;
-	public static String WITHER_NAME;
+	public static String[] WITHER_NAME;
 	public static float TROLL_HEALTH;
 	public static float TROLL_ATTACK_DAMAGE;
+	public static float WITHER_HEALTH;
+	public static float WITHER_ATTACK_DAMAGE;
+	public static float WITHER_FOLLOW_RANGE;
+	public static float WITHER_ARMOUR;
 	public static float TROLL_LEAP_HEIGHT;
 	public static boolean TROLL_EFFECTS;
 	public static int TROLL_EFFECTS_DURATION;
@@ -71,12 +75,12 @@ public class ConfigHandler {
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
         TROLL_NAME = CONFIG.getStringList("Troll Name", "TOR-Ore Troll", new String[] {"Vash_505", "Kashdeya", "Vadis365", "Funwayguy", "Arclight_TW", "Ore Troll", "Biggie"}, "Allows you to change the name of the Ore Troll!\n[You can have more then one name. It will randomly pick a name at spawn for each Ore Troll.]");
-        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 20F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
-        TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
-        TROLL_LEAP_HEIGHT = CONFIG.getFloat("Ore Troll Leap Height", "TOR-Ore Troll", 0.55F, 0.5F, Float.MAX_VALUE, "Allows you to change the jump height of the Troll!");
+        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 20F, 1F, Float.MAX_VALUE, "Allows you to change the Max Health of the Troll!");
+        TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the Attack Damage of the Troll!");
+        TROLL_LEAP_HEIGHT = CONFIG.getFloat("Ore Troll Leap Height", "TOR-Ore Troll", 0.55F, 0.5F, Float.MAX_VALUE, "Allows you to change the Jump Height of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
         TROLL_EFFECTS_DURATION = CONFIG.getInt("Ore Troll Effects Duration", "TOR-Ore Troll", 5, 5, Integer.MAX_VALUE, "Duration Troll Potion Effects Last (Seconds)");
-        TROLL_FOLLOW_RANGE = CONFIG.getInt("Ore Troll Follow Distance", "TOR-Ore Troll", 32, 8, Integer.MAX_VALUE, "Allows you to change the Follow Distance of the Troll!");
+        TROLL_FOLLOW_RANGE = CONFIG.getFloat("Ore Troll Follow Distance", "TOR-Ore Troll", 32F, 8F, Float.MAX_VALUE, "Allows you to change the Follow Distance of the Troll!");
         TROLL_IMMUNE_TO_FIRE_DAMAGE = CONFIG.getBoolean("Ore Troll Fire Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Fire Damage!");
         TROLL_IMMUNE_TO_FALL_DAMAGE = CONFIG.getBoolean("Ore Troll Fall Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Fall Damage!");
         TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE = CONFIG.getBoolean("Ore Troll Suffocation Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Suffocation Damage!");
@@ -87,12 +91,17 @@ public class ConfigHandler {
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
-        ENABLE_WITHER = CONFIG.getBoolean("Wither", "TOR-Wither", true, "Enable Wither to spawn from Troll Ores.\nPercent is set above!");
-        WITHER_IGNITE = CONFIG.getBoolean("Wither Ignite", "TOR-Wither", false, "Make Wither Ignite at spawn!");
-        SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", false, "Make Wither Silent!");
-        WITHER_NAME = CONFIG.getString("Wither Name", "TOR-Wither", "Prince of Darkness", "Allows you to change the name of the Wither!");
-        
-		if (CONFIG.hasChanged())
+        ENABLE_WITHER = CONFIG.getBoolean("Wither", "TOR-Wither", true, "Enable Small Wither to spawn from Troll Ores.\nPercent is set above!");
+        WITHER_IGNITE = CONFIG.getBoolean("Wither Ignite", "TOR-Wither", false, "Make Small Wither Ignite at spawn!");
+        SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", false, "Make Small Wither Silent!");
+        WITHER_NAME = CONFIG.getStringList("Wither Name", "TOR-Wither", new String[] { "Prince of Darkness", "Bam & Dlast", "Joooooooooooooooooooooooooooooon!", "Baby Bams", "5 Head - 2" }, "Allows you to change the name of the Wither!");
+
+        WITHER_HEALTH = CONFIG.getFloat("Wither Health", "TOR-Wither", 30F, 1F, Float.MAX_VALUE, "Allows you to change the Max Health of the Small Wither!");
+        WITHER_ATTACK_DAMAGE = CONFIG.getFloat("Wither Attack Damage", "TOR-Wither", 2F, 1F, Float.MAX_VALUE, "Allows you to change the Attack Damage of the Small Wither!");
+        WITHER_FOLLOW_RANGE = CONFIG.getFloat("Wither Follow Distance", "TOR-Wither", 40F, 8F, Float.MAX_VALUE, "Allows you to change the Follow Distance of the Small Wither!");
+        WITHER_ARMOUR = CONFIG.getFloat("Wither Armor", "TOR-Wither", 4F, 0F, Float.MAX_VALUE, "Allows you to change the Armor of the Small Wither!");
+
+        if (CONFIG.hasChanged())
 			CONFIG.save();
 	}
 

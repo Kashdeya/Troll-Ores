@@ -159,6 +159,9 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
+		if (ConfigHandler.TROLL_EXPLOSION)
+			spawnExplosionParticle();
+
 		if (ConfigHandler.TROLL_SPRINTING) {
 			setSprinting(true);
 			isSprinting();

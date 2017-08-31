@@ -1,7 +1,9 @@
 package com.kashdeya.trolloresreborn.proxy;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
+import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
 import com.kashdeya.trolloresreborn.entity.render.RenderOreTroll;
+import com.kashdeya.trolloresreborn.entity.render.RenderSmallWither;
 import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 import com.kashdeya.trolloresreborn.ref.Reference;
 
@@ -20,6 +22,7 @@ public class ClientProxy extends CommonProxy {
 	public void registerRenderers() {
 		ModelLoader.setCustomModelResourceLocation(TrollOresReborn.TROLL_ORE_ITEM, 0, new ModelResourceLocation(Reference.MOD_ID + ":" + "troll_ore", "inventory"));
 		RenderingRegistry.registerEntityRenderingHandler(EntityOreTroll.class, RenderOreTroll::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySmallWither.class, RenderSmallWither::new);
 	}
 
 }
