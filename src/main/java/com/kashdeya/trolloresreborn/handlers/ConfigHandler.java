@@ -66,12 +66,12 @@ public class ConfigHandler {
         // Ore Troll
         CONFIG.addCustomCategoryComment("TOR-Ore Troll", "");
         TROLL_SPAWN = CONFIG.getInt("Ore Troll", "TOR-Ore Troll", 1, 1, Integer.MAX_VALUE, "How many Ore Trolls spawns from Troll Ores");
-        TROLL_PRECENT = CONFIG.getInt("Ore Troll Percent", "TOR-Ore Troll", 99, 0, 100, "Percent that Ore Troll will spawn, Withers will spawn above this #.\n(Example = 99 means Withers have a 1% chance to Spawn!)");
+        TROLL_PRECENT = CONFIG.getInt("Ore Troll Percent", "TOR-Ore Troll", 99, 1, 100, "Percent that Ore Troll will spawn, Withers will spawn above this #.\n(Example = 99 means Withers have a 1% chance to Spawn if ENABLED below!)");
         SILENT_TROLL = CONFIG.getBoolean("Ore Troll Silent", "TOR-Ore Troll", false, "Make Ore Trolls Silent!");
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
-        TROLL_NAME = CONFIG.getStringList("Troll Name", "TOR-Ore Troll", new String[] {"Vash_505", "Kashdeya"}, "Allows you to change the name of the Troll!");
-        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 15F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
+        TROLL_NAME = CONFIG.getStringList("Troll Name", "TOR-Ore Troll", new String[] {"Vash_505", "Kashdeya", "Vadis365", "Funwayguy", "Arclight_TW", "Ore Troll", "Biggie"}, "Allows you to change the name of the Ore Troll!\n[You can have more then one name. It will randomly pick a name at spawn for each Ore Troll.]");
+        TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 20F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
         TROLL_LEAP_HEIGHT = CONFIG.getFloat("Ore Troll Leap Height", "TOR-Ore Troll", 0.55F, 0.5F, Float.MAX_VALUE, "Allows you to change the jump height of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
@@ -83,7 +83,7 @@ public class ConfigHandler {
         TROLL_IMMUNE_TO_PROJECTILE_DAMAGE = CONFIG.getBoolean("Ore Troll Projectile Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Projectile Damage!");
         TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE = CONFIG.getBoolean("Ore Troll Falling Block Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Falling Block Damage!");
         TROLL_IMMUNE_TO_CACTUS_DAMAGE = CONFIG.getBoolean("Ore Troll Cactus Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Cactus Damage!");
-        TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage !");
+        TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage!");
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
