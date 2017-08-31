@@ -170,7 +170,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 		if (ConfigHandler.TROLL_EFFECTS)
 			setPotionEffect(Byte.valueOf((byte) rand.nextInt(10)));
 
-		setCustomNameTag(ConfigHandler.TROLL_NAME[rand.nextInt(ConfigHandler.TROLL_NAME.length + 1)]);
+		setCustomNameTag(ConfigHandler.TROLL_NAME[rand.nextInt(ConfigHandler.TROLL_NAME.length)]);
 		getAlwaysRenderNameTag();
 		playLivingSound();
 		return livingdata;
