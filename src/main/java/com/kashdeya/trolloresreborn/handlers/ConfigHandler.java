@@ -95,13 +95,12 @@ public class ConfigHandler {
         WITHER_IGNITE = CONFIG.getBoolean("Wither Ignite", "TOR-Wither", false, "Make Small Wither Ignite at spawn!");
         SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", false, "Make Small Wither Silent!");
         WITHER_NAME = CONFIG.getStringList("Wither Name", "TOR-Wither", new String[] { "Prince of Darkness", "Bam & Dlast", "Joooooooooooooooooooooooooooooon!", "Baby Bams", "5 Head - 2" }, "Allows you to change the name of the Wither!");
-
         WITHER_HEALTH = CONFIG.getFloat("Wither Health", "TOR-Wither", 30F, 1F, Float.MAX_VALUE, "Allows you to change the Max Health of the Small Wither!");
         WITHER_ATTACK_DAMAGE = CONFIG.getFloat("Wither Attack Damage", "TOR-Wither", 2F, 1F, Float.MAX_VALUE, "Allows you to change the Attack Damage of the Small Wither!");
         WITHER_FOLLOW_RANGE = CONFIG.getFloat("Wither Follow Distance", "TOR-Wither", 40F, 8F, Float.MAX_VALUE, "Allows you to change the Follow Distance of the Small Wither!");
         WITHER_ARMOUR = CONFIG.getFloat("Wither Armor", "TOR-Wither", 4F, 0F, Float.MAX_VALUE, "Allows you to change the Armor of the Small Wither!");
 
-        if (CONFIG.hasChanged())
+		if (CONFIG.hasChanged())
 			CONFIG.save();
 	}
 
