@@ -34,6 +34,7 @@ public class ConfigHandler {
 	public static String WITHER_NAME;
 	public static float TROLL_HEALTH;
 	public static float TROLL_ATTACK_DAMAGE;
+	public static float TROLL_LEAP_HEIGHT;
 	public static boolean TROLL_EFFECTS;
 	public static int TROLL_EFFECTS_DURATION;
 	public static float TROLL_FOLLOW_RANGE;
@@ -72,6 +73,7 @@ public class ConfigHandler {
         TROLL_NAME = CONFIG.getStringList("Troll Name", "TOR-Ore Troll", new String[] {"Vash_505", "Kashdeya"}, "Allows you to change the name of the Troll!");
         TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 15F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
+        TROLL_LEAP_HEIGHT = CONFIG.getFloat("Ore Troll Leap Height", "TOR-Ore Troll", 0.55F, 0.5F, Float.MAX_VALUE, "Allows you to change the jump height of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
         TROLL_EFFECTS_DURATION = CONFIG.getInt("Ore Troll Effects Duration", "TOR-Ore Troll", 5, 5, Integer.MAX_VALUE, "Duration Troll Potion Effects Last (Seconds)");
         TROLL_FOLLOW_RANGE = CONFIG.getInt("Ore Troll Follow Distance", "TOR-Ore Troll", 32, 8, Integer.MAX_VALUE, "Allows you to change the Follow Distance of the Troll!");

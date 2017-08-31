@@ -60,7 +60,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	@Override
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAITrollLeap(this, 0.55F));
+		tasks.addTask(1, new EntityAITrollLeap(this, ConfigHandler.TROLL_LEAP_HEIGHT));
 		tasks.addTask(2, new EntityOreTroll.AIMonsterAttack(this));
 		tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		tasks.addTask(4, new EntityAIWander(this, 1.0D));
