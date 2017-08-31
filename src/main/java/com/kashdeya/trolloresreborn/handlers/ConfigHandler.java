@@ -30,7 +30,7 @@ public class ConfigHandler {
 	public static boolean TROLL_EXPLOSION;
 	public static boolean TROLL_SPRINTING;
 	public static boolean FORTUNE_MULTIPLIER;
-	public static String TROLL_NAME;
+	public static String[] TROLL_NAME;
 	public static String WITHER_NAME;
 	public static float TROLL_HEALTH;
 	public static float TROLL_ATTACK_DAMAGE;
@@ -69,7 +69,7 @@ public class ConfigHandler {
         SILENT_TROLL = CONFIG.getBoolean("Ore Troll Silent", "TOR-Ore Troll", false, "Make Ore Trolls Silent!");
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
-        TROLL_NAME = CONFIG.getString("Troll Name", "TOR-Ore Troll", "Vash_505", "Allows you to change the name of the Troll!");
+        TROLL_NAME = CONFIG.getStringList("Troll Name", "TOR-Ore Troll", new String[] {"Vash_505", "Kashdeya"}, "Allows you to change the name of the Troll!");
         TROLL_HEALTH = CONFIG.getFloat("Ore Troll Health","TOR-Ore Troll", 15F, 1F, Float.MAX_VALUE, "Allows you to change the max health of the Troll!");
         TROLL_ATTACK_DAMAGE = CONFIG.getFloat("Ore Troll Attack Damage", "TOR-Ore Troll", 2F, 1F, Float.MAX_VALUE, "Allows you to change the attack damage of the Troll!");
         TROLL_EFFECTS = CONFIG.getBoolean("Ore Troll will Attack with Random Negative Potion Effect", "TOR-Ore Troll", true, "Make Ore Trolls Have Effects!");
