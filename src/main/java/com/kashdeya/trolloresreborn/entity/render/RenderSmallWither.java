@@ -16,7 +16,7 @@ public class RenderSmallWither extends RenderLiving<EntitySmallWither> {
     private static final ResourceLocation WITHER_TEXTURES = new ResourceLocation("textures/entity/wither/wither.png");
 
     public RenderSmallWither(RenderManager renderManagerIn) {
-        super(renderManagerIn, new ModelSmallWither(0.0F), 1.0F);
+        super(renderManagerIn, new ModelSmallWither(0.0F), 0.3F);
         this.addLayer(new LayerSmallWitherAura(this));
     }
 
