@@ -48,7 +48,7 @@ public class TrollOresReborn {
 		GameRegistry.register(TROLL_ORE_ITEM.setRegistryName(TROLL_ORE.getRegistryName()).setUnlocalizedName("troll_ore"));
 
 		EntityRegistry.registerModEntity(EntityOreTroll.class, "Ore-Troll", 1, this, 120, 1, true, 0x7F8287, 0x8CEDFF);
-		EntityRegistry.registerModEntity(EntitySmallWither.class, "Small-Wither", 2, this, 120, 1, true, 0xFFFFFF, 0x8CEDFF);
+		EntityRegistry.registerModEntity(EntitySmallWither.class, "Small-Wither", 2, this, 120, 1, true, 0x000000, 0x8CEDFF);
 		MinecraftForge.EVENT_BUS.register(new WorldGen());
 		PROXY.registerRenderers();
     }
