@@ -208,7 +208,6 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 
 	public EntityOreTroll setContents(ItemStack stack, int index) {
 		inventory[index] = stack.copy();
-		System.out.println("Inventory received: " + inventory[index]);
 		return this;
 	}
 
