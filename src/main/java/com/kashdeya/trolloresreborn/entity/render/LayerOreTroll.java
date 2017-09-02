@@ -5,19 +5,16 @@ import com.kashdeya.trolloresreborn.entity.model.ModelOreTroll;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerOreTroll implements LayerRenderer<EntityOreTroll> {
 	private final RenderOreTroll trollRenderer;
-	private final ModelOreTroll trollModel = new ModelOreTroll();
 
 	public LayerOreTroll(RenderOreTroll livingEntityRendererIn) {
 		this.trollRenderer = livingEntityRendererIn;
@@ -27,26 +24,31 @@ public class LayerOreTroll implements LayerRenderer<EntityOreTroll> {
 	public void doRenderLayer(EntityOreTroll entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack stack = entity.getHeldItemMainhand();
 
-		if (stack != null)
-			this.renderHeldItem(entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, stack);
-	}
-
-	private void renderHeldItem(EntityOreTroll entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale, ItemStack stack) {
 		if (stack != null) {
-			float tick = (float) (720.0 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
-
 			GlStateManager.pushMatrix();
-			float animation = MathHelper.sin((entity.limbSwing * 0.4F) * 1.5F) * 0.3F * entity.limbSwingAmount * 0.3F;
-			GlStateManager.translate(0.0F, 0.33F, 0F);
-			GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(tick * 5F, 0F, 1F, 0F);
-			GlStateManager.scale(0.125F, 0.125F, 0.125F);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, (World) null, (EntityLivingBase) null));
+			renderHeldItem(entity, stack, TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
 			GlStateManager.popMatrix();
 		}
 	}
 
+	private void renderHeldItem(EntityOreTroll entity, ItemStack stack, TransformType transform, EnumHandSide handSide) {
+		if (stack != null) {
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.75F, 0.75F, 0.75F);
+			((ModelOreTroll) trollRenderer.getMainModel()).bum.postRender(0.0625F);
+			((ModelOreTroll) trollRenderer.getMainModel()).body_main.postRender(0.0625F);
+			((ModelOreTroll) trollRenderer.getMainModel()).right_arm_1.postRender(0.0625F);
+			((ModelOreTroll) trollRenderer.getMainModel()).right_arm_2.postRender(0.0625F);
+			((ModelOreTroll) trollRenderer.getMainModel()).postRenderArm(0.0625F);
+            GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.translate(0.5F, -0.125F, 0.5F);
+			Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, transform, false);
+			GlStateManager.popMatrix();
+		}
+	}
+
+	@Override
 	public boolean shouldCombineTextures() {
 		return false;
 	}

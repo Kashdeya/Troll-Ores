@@ -6,6 +6,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -274,14 +275,31 @@ public class ModelOreTroll extends ModelBase {
 		left_finger_in.rotateAngleX = 0.5235987755982988F - flap * 0.5F;
 		left_finger_out.rotateAngleX = 0.5235987755982988F - flap * 0.5F;
 		
-		right_finger_in.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
-		right_finger_out.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
-		
 		left_thumb.rotateAngleZ = 2.443460952792061F + flap * 0.5F;
-		right_thumb.rotateAngleZ = 0.6981317007977318F + flap * 0.5F;
-		
+
 		left_hand.rotateAngleX = 0.625F - flap * 0.2F;
 		right_hand.rotateAngleX = 0.625F + flap * 0.2F;
+
+		ItemStack stack = entity.getHeldItemMainhand();
+
+		if (stack != null) {
+			right_finger_in.rotateAngleX = 0.8235987755982988F;
+			right_finger_out.rotateAngleX = 0.8235987755982988F;
+			right_thumb.rotateAngleZ = 0.9981317007977318F;
+		}
+		else {
+			right_finger_in.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
+			right_finger_out.rotateAngleX = 0.5235987755982988F + flap * 0.5F;
+			right_thumb.rotateAngleZ = 0.6981317007977318F + flap * 0.5F;
+		}
+	}
+
+	public void postRenderArm(float scale) {
+		this.getArm().postRender(scale);
+	}
+
+	protected ModelRenderer getArm() {
+		return right_hand;
 	}
 
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
