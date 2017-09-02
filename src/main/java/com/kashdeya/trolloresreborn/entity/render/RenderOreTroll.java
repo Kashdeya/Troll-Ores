@@ -16,6 +16,7 @@ public class RenderOreTroll extends RenderLiving<EntityOreTroll> {
 
 	public RenderOreTroll(RenderManager renderManagerIn) {
         super(renderManagerIn, new ModelOreTroll(), 0.4F);
+        this.addLayer(new LayerOreTroll(this));
     }
 
 	@Override

@@ -22,7 +22,11 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -43,11 +47,12 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	private static final DataParameter<Byte> EFFECT = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25, 27 };
-
+	public ItemStack[] inventory;
 	public EntityOreTroll(World world) {
 		super(world);
 		setSize(0.9F, 0.9F);
 		experienceValue = 10;
+		inventory = new ItemStack[27];
 	}
 
 	@Override
@@ -89,7 +94,21 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 		super.onUpdate();
 		if (!worldObj.isRemote)
 			setBesideClimbableBlock(isCollidedHorizontally);
+	}
 
+	@Override
+	protected boolean canDespawn() {
+		if(getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	protected void dropFewItems(boolean recentlyHit, int looting) {
+		for (ItemStack is : inventory)
+			if (is != null)
+				InventoryHelper.spawnItemStack(worldObj, (int) posX, (int) posY, (int) posZ, is);
 	}
 
 	@Override
@@ -187,16 +206,39 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 		dataManager.set(EFFECT, Byte.valueOf(type));
 	}
 
+	public EntityOreTroll setContents(ItemStack stack, int index) {
+		inventory[index] = stack.copy();
+		System.out.println("Inventory received: " + inventory[index]);
+		return this;
+	}
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt) {
 		super.writeEntityToNBT(nbt);
 		nbt.setByte("effect", getPotionEffect());
+		NBTTagList nbttaglist = new NBTTagList();
+		for (int i = 0; i < inventory.length; i++)
+			if (inventory[i] != null) {
+				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+				nbttagcompound1.setByte("Slot", (byte) i);
+				inventory[i].writeToNBT(nbttagcompound1);
+				nbttaglist.appendTag(nbttagcompound1);
+			}
+		nbt.setTag("Items", nbttaglist);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
 		super.readEntityFromNBT(nbt);
 		setPotionEffect(nbt.getByte("effect"));
+		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
+		inventory = new ItemStack[27];
+		for (int i = 0; i < nbttaglist.tagCount(); i++) {
+			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
+			byte b0 = nbttagcompound1.getByte("Slot");
+			if (b0 >= 0 && b0 < inventory.length)
+				inventory[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+		}
 	}
 
 	@Override
