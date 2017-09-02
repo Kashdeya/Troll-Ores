@@ -11,6 +11,7 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -83,7 +84,10 @@ public class TOREventHandler {
 								ItemStack stack4 = stack3.copy();
 								if (stack3.hasTagCompound())
 									stack4.setTagCompound(stack3.getTagCompound());
-								troll.setContents(stack4, index);
+								if(index > troll.inventory.length)
+									InventoryHelper.spawnItemStack(event.getWorld(), (int) event.getPos().getX(), (int) event.getPos().getY(), (int) event.getPos().getZ(), stack4);
+								else
+									troll.setContents(stack4, index);
 							}
 							event.setDropChance(0F);
 						}
