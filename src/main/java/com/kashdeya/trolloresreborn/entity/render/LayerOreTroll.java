@@ -24,7 +24,7 @@ public class LayerOreTroll implements LayerRenderer<EntityOreTroll> {
 	public void doRenderLayer(EntityOreTroll entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack stack = entity.getHeldItemMainhand();
 
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			renderHeldItem(entity, stack, TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
 			GlStateManager.popMatrix();
@@ -32,7 +32,7 @@ public class LayerOreTroll implements LayerRenderer<EntityOreTroll> {
 	}
 
 	private void renderHeldItem(EntityOreTroll entity, ItemStack stack, TransformType transform, EnumHandSide handSide) {
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.75F, 0.75F, 0.75F);
 			((ModelOreTroll) trollRenderer.getMainModel()).bum.postRender(0.0625F);

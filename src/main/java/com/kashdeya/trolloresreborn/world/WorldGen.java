@@ -2,7 +2,7 @@ package com.kashdeya.trolloresreborn.world;
 
 import java.util.Random;
 
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
+import com.kashdeya.trolloresreborn.init.ModBlocks;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,7 +26,7 @@ public class WorldGen
 			int firstBlockYCoord = rand.nextInt(64);
 			int firstBlockZCoord = z + rand.nextInt(16);
 
-			(new WorldGenMinable(TrollOresReborn.TROLL_ORE.getDefaultState(), 3)).generate(world, rand, new BlockPos(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord));
+			(new WorldGenMinable(ModBlocks.TROLL_ORE.getDefaultState(), 3)).generate(world, rand, new BlockPos(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord));
 		}
 	}
 	

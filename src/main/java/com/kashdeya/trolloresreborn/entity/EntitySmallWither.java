@@ -119,7 +119,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	}
 
 	public static void registerFixesWither(DataFixer fixer) {
-		EntityLiving.registerFixesMob(fixer, "Small-Wither");
+		EntityLiving.registerFixesMob(fixer, EntitySmallWither.class);
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound(DamageSource damage) {
 		return SoundEvents.ENTITY_WITHER_HURT;
 	}
 
@@ -153,8 +153,8 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	public void onLivingUpdate() {
 		motionY *= 0.6000000238418579D;
 
-		if (!worldObj.isRemote && getWatchedTargetId(0) > 0) {
-			Entity entity = worldObj.getEntityByID(getWatchedTargetId(0));
+		if (!getEntityWorld().isRemote && getWatchedTargetId(0) > 0) {
+			Entity entity = getEntityWorld().getEntityByID(getWatchedTargetId(0));
 
 			if (entity != null) {
 				if (posY < entity.posY || !isArmored() && posY < entity.posY + 5.0D) {
@@ -170,7 +170,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 				double d3 = d0 * d0 + d1 * d1;
 
 				if (d3 > 9.0D) {
-					double d5 = (double) MathHelper.sqrt_double(d3);
+					double d5 = (double) MathHelper.sqrt(d3);
 					motionX += (d0 / d5 * 0.5D - motionX) * 0.6000000238418579D;
 					motionZ += (d1 / d5 * 0.5D - motionZ) * 0.6000000238418579D;
 				}
@@ -193,7 +193,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			Entity entity1 = null;
 
 			if (k > 0) {
-				entity1 = worldObj.getEntityByID(k);
+				entity1 = getEntityWorld().getEntityByID(k);
 			}
 
 			if (entity1 != null) {
@@ -203,7 +203,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 				double d6 = entity1.posX - d11;
 				double d7 = entity1.posY + (double) entity1.getEyeHeight() - d12;
 				double d8 = entity1.posZ - d13;
-				double d9 = (double) MathHelper.sqrt_double(d6 * d6 + d8 * d8);
+				double d9 = (double) MathHelper.sqrt(d6 * d6 + d8 * d8);
 				float f = (float) (MathHelper.atan2(d8, d6) * (180D / Math.PI)) - 90.0F;
 				float f1 = (float) (-(MathHelper.atan2(d7, d9) * (180D / Math.PI)));
 				xRotationHeads[j] = rotlerp(xRotationHeads[j], f1, 40.0F);
@@ -219,16 +219,16 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			double d10 = getHeadX(l);
 			double d2 = getHeadY(l);
 			double d4 = getHeadZ(l);
-			worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, posY + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D, new int[0]);
+			getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d10 + rand.nextGaussian() * 0.30000001192092896D, posY + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D, new int[0]);
 
-			if (flag && worldObj.rand.nextInt(4) == 0) {
-				worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, posY + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D, new int[0]);
+			if (flag && getEntityWorld().rand.nextInt(4) == 0) {
+				getEntityWorld().spawnParticle(EnumParticleTypes.SPELL_MOB, d10 + rand.nextGaussian() * 0.30000001192092896D, posY + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.699999988079071D, 0.699999988079071D, 0.5D, new int[0]);
 			}
 		}
 
 		if (getInvulTime() > 0) {
 			for (int i1 = 0; i1 < 3; ++i1) {
-				worldObj.spawnParticle(EnumParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat()), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D, new int[0]);
+				getEntityWorld().spawnParticle(EnumParticleTypes.SPELL_MOB, posX + rand.nextGaussian(), posY + (double) (rand.nextFloat()), posZ + rand.nextGaussian(), 0.699999988079071D, 0.699999988079071D, 0.8999999761581421D, new int[0]);
 			}
 		}
 	}
@@ -239,8 +239,8 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			int j1 = getInvulTime() - 1;
 
 			if (j1 <= 0) {
-				worldObj.newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7.0F, false, worldObj.getGameRules().getBoolean("mobGriefing"));
-				worldObj.playBroadcastSound(1023, new BlockPos(this), 0);
+				getEntityWorld().newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7.0F, false, getEntityWorld().getGameRules().getBoolean("mobGriefing"));
+				getEntityWorld().playBroadcastSound(1023, new BlockPos(this), 0);
 			}
 
 			setInvulTime(j1);
@@ -255,8 +255,8 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 				if (ticksExisted >= nextHeadUpdate[i - 1]) {
 					nextHeadUpdate[i - 1] = ticksExisted + 10 + rand.nextInt(10);
 
-					if (worldObj.getDifficulty() == EnumDifficulty.NORMAL
-							|| worldObj.getDifficulty() == EnumDifficulty.HARD) {
+					if (getEntityWorld().getDifficulty() == EnumDifficulty.NORMAL
+							|| getEntityWorld().getDifficulty() == EnumDifficulty.HARD) {
 						int j3 = i - 1;
 						int k3 = idleHeadUpdates[i - 1];
 						idleHeadUpdates[j3] = idleHeadUpdates[i - 1] + 1;
@@ -264,9 +264,9 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 						if (k3 > 15) {
 							float f = 10.0F;
 							float f1 = 5.0F;
-							double d0 = MathHelper.getRandomDoubleInRange(rand, posX - 10.0D, posX + 10.0D);
-							double d1 = MathHelper.getRandomDoubleInRange(rand, posY - 5.0D, posY + 5.0D);
-							double d2 = MathHelper.getRandomDoubleInRange(rand, posZ - 10.0D, posZ + 10.0D);
+							double d0 = MathHelper.nextDouble(rand, posX - 10.0D, posX + 10.0D);
+							double d1 = MathHelper.nextDouble(rand, posY - 5.0D, posY + 5.0D);
+							double d2 = MathHelper.nextDouble(rand, posZ - 10.0D, posZ + 10.0D);
 							launchWitherSkullToCoords(i + 1, d0, d1, d2, true);
 							idleHeadUpdates[i - 1] = 0;
 						}
@@ -275,7 +275,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 					int k1 = getWatchedTargetId(i);
 
 					if (k1 > 0) {
-						Entity entity = worldObj.getEntityByID(k1);
+						Entity entity = getEntityWorld().getEntityByID(k1);
 
 						if (entity != null && entity.isEntityAlive() && getDistanceSqToEntity(entity) <= 900.0D && canEntityBeSeen(entity)) {
 							if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
@@ -289,7 +289,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 							updateWatchedTargetId(i, 0);
 						}
 					} else {
-						List<EntityLivingBase> list = worldObj.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().expand(20.0D, 8.0D, 20.0D), Predicates.<EntityLivingBase>and(NOT_UNDEAD, EntitySelectors.NOT_SPECTATING));
+						List<EntityLivingBase> list = getEntityWorld().<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, getEntityBoundingBox().expand(20.0D, 8.0D, 20.0D), Predicates.<EntityLivingBase>and(NOT_UNDEAD, EntitySelectors.NOT_SPECTATING));
 
 						for (int j2 = 0; j2 < 10 && !list.isEmpty(); ++j2) {
 							EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(rand.nextInt(list.size()));
@@ -321,10 +321,10 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			if (blockBreakCounter > 0) {
 				--blockBreakCounter;
 
-				if (blockBreakCounter == 0 && worldObj.getGameRules().getBoolean("mobGriefing")) {
-					int i1 = MathHelper.floor_double(posY);
-					int l1 = MathHelper.floor_double(posX);
-					int i2 = MathHelper.floor_double(posZ);
+				if (blockBreakCounter == 0 && getEntityWorld().getGameRules().getBoolean("mobGriefing")) {
+					int i1 = MathHelper.floor(posY);
+					int l1 = MathHelper.floor(posX);
+					int i2 = MathHelper.floor(posZ);
 					boolean flag = false;
 
 					for (int k2 = -1; k2 <= 1; ++k2) {
@@ -334,18 +334,18 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 								int k = i1 + j;
 								int l = i2 + l2;
 								BlockPos blockpos = new BlockPos(i3, k, l);
-								IBlockState iblockstate = worldObj.getBlockState(blockpos);
+								IBlockState iblockstate = getEntityWorld().getBlockState(blockpos);
 								Block block = iblockstate.getBlock();
 
-								if (!block.isAir(iblockstate, worldObj, blockpos) && block.canEntityDestroy(iblockstate, worldObj, blockpos, this)) {
-									flag = worldObj.destroyBlock(blockpos, true) || flag;
+								if (!block.isAir(iblockstate, getEntityWorld(), blockpos) && block.canEntityDestroy(iblockstate, getEntityWorld(), blockpos, this)) {
+									flag = getEntityWorld().destroyBlock(blockpos, true) || flag;
 								}
 							}
 						}
 					}
 
 					if (flag) {
-						worldObj.playEvent((EntityPlayer) null, 1022, new BlockPos(this), 0);
+						getEntityWorld().playEvent((EntityPlayer) null, 1022, new BlockPos(this), 0);
 					}
 				}
 			}
@@ -426,14 +426,14 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	}
 
 	private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {
-		worldObj.playEvent((EntityPlayer) null, 1024, new BlockPos(this), 0);
+		getEntityWorld().playEvent((EntityPlayer) null, 1024, new BlockPos(this), 0);
 		double d0 = getHeadX(p_82209_1_);
 		double d1 = getHeadY(p_82209_1_);
 		double d2 = getHeadZ(p_82209_1_);
 		double d3 = x - d0;
 		double d4 = y - d1;
 		double d5 = z - d2;
-		EntityWitherSkull entitywitherskull = new EntityWitherSkull(worldObj, this, d3, d4, d5);
+		EntityWitherSkull entitywitherskull = new EntityWitherSkull(getEntityWorld(), this, d3, d4, d5);
 
 		if (invulnerable) {
 			entitywitherskull.setInvulnerable(true);
@@ -442,7 +442,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 		entitywitherskull.posY = posY + getEyeHeight() * 0.5D;
 		entitywitherskull.posX = posX;
 		entitywitherskull.posZ = posZ;
-		worldObj.spawnEntityInWorld(entitywitherskull);
+		getEntityWorld().spawnEntity(entitywitherskull);
 	}
 
 	@Override
@@ -454,19 +454,19 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (isEntityInvulnerable(source)) {
 			return false;
-		} else if (source != DamageSource.drown && !(source.getEntity() instanceof EntitySmallWither)) {
-			if (getInvulTime() > 0 && source != DamageSource.outOfWorld) {
+		} else if (source != DamageSource.DROWN && !(source.getTrueSource() instanceof EntitySmallWither)) {
+			if (getInvulTime() > 0 && source != DamageSource.OUT_OF_WORLD) {
 				return false;
 			} else {
 				if (isArmored()) {
-					Entity entity = source.getSourceOfDamage();
+					Entity entity = source.getTrueSource();
 
 					if (entity instanceof EntityArrow) {
 						return false;
 					}
 				}
 
-				Entity entity1 = source.getEntity();
+				Entity entity1 = source.getTrueSource();
 
 				if (entity1 != null && !(entity1 instanceof EntityPlayer) && entity1 instanceof EntityLivingBase && ((EntityLivingBase) entity1).getCreatureAttribute() == getCreatureAttribute()) {
 					return false;
@@ -493,15 +493,15 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	}
 
 	@Override
-	protected void despawnEntity() {
-		entityAge = 0;
-	}
+    protected void despawnEntity() {
+		idleTime = 0;
+    }
 
+    @SideOnly(Side.CLIENT)
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getBrightnessForRender(float partialTicks) {
-		return 15728880;
-	}
+    public int getBrightnessForRender() {
+        return 15728880;
+    }
 
 	@Override
 	public void fall(float distance, float damageMultiplier) {
@@ -571,6 +571,10 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	@Override
 	public boolean isNonBoss() {
 		return false;
+	}
+
+	@Override
+	public void setSwingingArms(boolean swingingArms) {
 	}
 
 	class AIDoNothing extends EntityAIBase {
