@@ -1,30 +1,12 @@
 package com.kashdeya.trolloresreborn.proxy;
 
-import com.kashdeya.trolloresreborn.handlers.EventHandler;
-import com.kashdeya.trolloresreborn.world.WorldGen;
-
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-
 public class CommonProxy {
-	
-	public boolean isClient()
-	{
+
+	public boolean isClient() {
 		return false;
 	}
-	
-	@SuppressWarnings("deprecation")
-	public void registerHandlers()
-	{
-		EventHandler handler = new EventHandler();
-		MinecraftForge.EVENT_BUS.register(handler);
-		FMLCommonHandler.instance().bus().register(handler);
-		MinecraftForge.EVENT_BUS.register(new WorldGen());
-	}
 
-	public void registerRenderers()
-	{
+	public void registerRenderers() {
 	}
-
 
 }

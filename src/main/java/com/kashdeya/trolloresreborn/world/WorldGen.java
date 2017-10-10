@@ -15,7 +15,7 @@ public class WorldGen
 	@SubscribeEvent
 	public void onGenerate(PopulateChunkEvent.Pre event)
 	{
-		generateOre(event.getWorld(), new Random(), event.getChunkX() * 16 + 8, event.getChunkZ() * 16 + 8);
+		generateOre(event.getWorld(), new Random(), event.getChunkX() * 16, event.getChunkZ() * 16);
 	}
 	
 	private void generateOre(World world, Random rand, int x, int z)
@@ -26,7 +26,7 @@ public class WorldGen
 			int firstBlockYCoord = rand.nextInt(64);
 			int firstBlockZCoord = z + rand.nextInt(16);
 
-			(new WorldGenMinable(TrollOresReborn.oreTrollOre.getDefaultState(), 3)).generate(world, rand, new BlockPos(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord));
+			(new WorldGenMinable(TrollOresReborn.TROLL_ORE.getDefaultState(), 3)).generate(world, rand, new BlockPos(firstBlockXCoord, firstBlockYCoord, firstBlockZCoord));
 		}
 	}
 	
