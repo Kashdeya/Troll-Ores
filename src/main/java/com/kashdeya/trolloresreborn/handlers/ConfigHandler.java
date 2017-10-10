@@ -38,6 +38,8 @@ public class ConfigHandler {
 	public static float WITHER_ATTACK_DAMAGE;
 	public static float WITHER_FOLLOW_RANGE;
 	public static float WITHER_ARMOUR;
+	public static boolean WITHER_FIRE;
+	public static int WITHER_EXP_DROPS;
 	public static float TROLL_LEAP_HEIGHT;
 	public static boolean TROLL_EFFECTS;
 	public static int TROLL_EFFECTS_DURATION;
@@ -99,7 +101,9 @@ public class ConfigHandler {
         WITHER_ATTACK_DAMAGE = CONFIG.getFloat("Wither Attack Damage", "TOR-Wither", 2F, 1F, Float.MAX_VALUE, "Allows you to change the Attack Damage of the Small Wither!");
         WITHER_FOLLOW_RANGE = CONFIG.getFloat("Wither Follow Distance", "TOR-Wither", 40F, 8F, Float.MAX_VALUE, "Allows you to change the Follow Distance of the Small Wither!");
         WITHER_ARMOUR = CONFIG.getFloat("Wither Armor", "TOR-Wither", 4F, 0F, Float.MAX_VALUE, "Allows you to change the Armor of the Small Wither!");
-
+        WITHER_EXP_DROPS = CONFIG.getInt("Wither Experience Drop", "TOR-Wither", 10, 0, Integer.MAX_VALUE, "How much Exp the TOR Wither Drops!");
+        WITHER_FIRE = CONFIG.getBoolean("Wither Immune To Fire", "TOR-Wither", true, "Allows Wither to be Immune to fire!");
+        
 		if (CONFIG.hasChanged())
 			CONFIG.save();
 	}

@@ -13,8 +13,8 @@ public class TrollBlock extends Block {
 
 	public TrollBlock() {
 		super(Material.ROCK);
-		this.setHardness(1F);
-		this.setResistance(5F);
+		this.setHardness(3.0F);
+		this.setResistance(5.0F);
 		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	}
 

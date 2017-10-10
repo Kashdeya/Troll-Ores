@@ -78,9 +78,9 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 		super(world);
 		setHealth(getMaxHealth());
 		setSize(0.3F, 0.9F);
-		isImmuneToFire = true;
+		isImmuneToFire = ConfigHandler.WITHER_FIRE;
 		((PathNavigateGround) getNavigator()).setCanSwim(true);
-		experienceValue = 10;
+		experienceValue = ConfigHandler.WITHER_EXP_DROPS;
 	}
 
 	@Override
