@@ -6,7 +6,6 @@ import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
 import com.kashdeya.trolloresreborn.handlers.TOREventHandler;
 import com.kashdeya.trolloresreborn.proxy.CommonProxy;
 import com.kashdeya.trolloresreborn.ref.Reference;
-import com.kashdeya.trolloresreborn.world.WorldGen;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,12 +31,10 @@ public class TrollOresReborn {
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 		ConfigHandler.INSTANCE.loadConfig(event);
-		ModBlocks.init();
 		ModSounds.init();
 
 		EntityRegistry.registerModEntity(getEntityResource("ore_troll"), EntityOreTroll.class, "Ore-Troll", 1, this, 120, 1, true, 0x7F8287, 0x8CEDFF);
 		EntityRegistry.registerModEntity(getEntityResource("small_wither"), EntitySmallWither.class, "Small-Wither", 2, this, 120, 1, true, 0x000000, 0x8CEDFF);
-		MinecraftForge.EVENT_BUS.register(new WorldGen());
 		PROXY.registerRenderers();
     }
 	

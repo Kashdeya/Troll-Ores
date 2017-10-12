@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
 import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
-import com.kashdeya.trolloresreborn.init.ModBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
@@ -56,7 +55,7 @@ public class TOREventHandler {
 				}
 			}
 
-			if(flag && (event.getState().getBlock() == ModBlocks.TROLL_ORE || event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F)))
+			if(flag &&  event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
 			{
 				Random rand = new Random();
 				int low = 0;

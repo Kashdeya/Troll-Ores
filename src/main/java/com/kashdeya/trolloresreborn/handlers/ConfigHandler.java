@@ -72,7 +72,7 @@ public class ConfigHandler {
         // Ore Troll
         CONFIG.addCustomCategoryComment("TOR-Ore Troll", "");
         TROLL_SPAWN = CONFIG.getInt("Ore Troll", "TOR-Ore Troll", 1, 1, Integer.MAX_VALUE, "How many Ore Trolls spawns from Troll Ores");
-        TROLL_PRECENT = CONFIG.getInt("Ore Troll Percent", "TOR-Ore Troll", 99, 1, 100, "Percent that Ore Troll will spawn, Withers will spawn above this #.\n(Example = 99 means Withers have a 1% chance to Spawn if ENABLED below!)");
+        TROLL_PRECENT = CONFIG.getInt("Ore Troll Percent", "TOR-Ore Troll", 90, 1, 100, "Percent that Ore Troll will spawn, Withers will spawn above this #.\n(Example = 90 means Withers have a 10% chance to Spawn if ENABLED below!)");
         SILENT_TROLL = CONFIG.getBoolean("Ore Troll Silent", "TOR-Ore Troll", false, "Make Ore Trolls Silent!");
         TROLL_EXPLOSION = CONFIG.getBoolean("Ore Troll Particles", "TOR-Ore Troll", true, "Add Particles when Ore Trolls Spawn!");
         TROLL_SPRINTING = CONFIG.getBoolean("Ore Troll Sprinting", "TOR-Ore Troll", true, "Make Ore Trolls Sprint!");
