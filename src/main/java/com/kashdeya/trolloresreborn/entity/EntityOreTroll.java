@@ -52,7 +52,8 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public EntityOreTroll(World world) {
 		super(world);
 		setSize(0.9F, 0.9F);
-		experienceValue = 10;
+		isImmuneToFire = true;
+		experienceValue = ConfigHandler.TROLL_EXP_DROPS;
 		inventory = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	}
 

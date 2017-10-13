@@ -29,6 +29,7 @@ public class ConfigHandler {
 	public static boolean WITHER_IGNITE;
 	public static boolean TROLL_EXPLOSION;
 	public static boolean TROLL_SPRINTING;
+	public static int TROLL_EXP_DROPS;
 	public static boolean FORTUNE_MULTIPLIER;
 	public static String[] TROLL_NAME;
 	public static String[] WITHER_NAME;
@@ -90,6 +91,7 @@ public class ConfigHandler {
         TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE = CONFIG.getBoolean("Ore Troll Falling Block Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Falling Block Damage!");
         TROLL_IMMUNE_TO_CACTUS_DAMAGE = CONFIG.getBoolean("Ore Troll Cactus Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Cactus Damage!");
         TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage!");
+        TROLL_EXP_DROPS = CONFIG.getInt("Ore Troll Experience Drop", "TOR-Ore Troll", 10, 0, Integer.MAX_VALUE, "How much Exp the Ore Trolls Drops!");
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
