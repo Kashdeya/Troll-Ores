@@ -2,6 +2,7 @@ package com.kashdeya.trolloresreborn.init;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
 import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
+import com.kashdeya.trolloresreborn.entity.EntitySmallWitherSkull;
 import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
 import com.kashdeya.trolloresreborn.handlers.TOREventHandler;
 import com.kashdeya.trolloresreborn.proxy.CommonProxy;
@@ -35,6 +36,7 @@ public class TrollOresReborn {
 
 		EntityRegistry.registerModEntity(getEntityResource("ore_troll"), EntityOreTroll.class, "Ore-Troll", 1, this, 120, 1, true, 0x7F8287, 0x8CEDFF);
 		EntityRegistry.registerModEntity(getEntityResource("small_wither"), EntitySmallWither.class, "Small-Wither", 2, this, 120, 1, true, 0x000000, 0x8CEDFF);
+		EntityRegistry.registerModEntity(getEntityResource("small_wither_skull"), EntitySmallWitherSkull.class, "Small-Wither-Skull", 3, this, 120, 1, true);
 		PROXY.registerRenderers();
     }
 	

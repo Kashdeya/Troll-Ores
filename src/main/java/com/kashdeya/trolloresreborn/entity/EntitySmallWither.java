@@ -29,7 +29,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
@@ -441,7 +440,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 		double d3 = x - d0;
 		double d4 = y - d1;
 		double d5 = z - d2;
-		EntityWitherSkull entitywitherskull = new EntityWitherSkull(getEntityWorld(), this, d3, d4, d5);
+		EntitySmallWitherSkull entitywitherskull = new EntitySmallWitherSkull(getEntityWorld(), this, d3, d4, d5);
 
 		if (invulnerable) {
 			entitywitherskull.setInvulnerable(true);
@@ -460,7 +459,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (isEntityInvulnerable(source)) {
+		if (isEntityInvulnerable(source) || source.isExplosion()) {
 			return false;
 		} else if (source != DamageSource.DROWN && !(source.getTrueSource() instanceof EntitySmallWither)) {
 			if (getInvulTime() > 0 && source != DamageSource.OUT_OF_WORLD) {
