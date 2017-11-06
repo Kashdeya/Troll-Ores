@@ -52,6 +52,7 @@ public class ConfigHandler {
 	public static boolean TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE;
 	public static boolean TROLL_IMMUNE_TO_CACTUS_DAMAGE;
 	public static boolean TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE;
+	public static boolean TROLL_CLIMBING_AI;
 	
 	public void loadConfig(FMLPreInitializationEvent event) {
 		CONFIG = new Configuration(new File(CONFIG_DIR, "Troll Ores Reborn.cfg"));
@@ -92,6 +93,7 @@ public class ConfigHandler {
         TROLL_IMMUNE_TO_CACTUS_DAMAGE = CONFIG.getBoolean("Ore Troll Cactus Damage Resitance", "TOR-Ore Troll", true, "Make Ore Trolls Immune to Cactus Damage!");
         TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage!");
         TROLL_EXP_DROPS = CONFIG.getInt("Ore Troll Experience Drop", "TOR-Ore Troll", 10, 0, Integer.MAX_VALUE, "How much Exp the Ore Trolls Drops!");
+        TROLL_CLIMBING_AI = CONFIG.getBoolean("Ore Troll Can Climb Like Spiders", "TOR-Ore Troll", true, "Make Ore Trolls Climb Like Spiders!");
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");

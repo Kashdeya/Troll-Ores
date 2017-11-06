@@ -23,7 +23,7 @@ public class EntityAITrollLeap extends EntityAIBase {
 		if (leapTarget == null) {
 			return false;
 		} else {
-			double d0 = leaper.getDistanceSqToEntity(leapTarget);
+			double d0 = leaper.getDistanceSq(leapTarget);
 			return d0 >= 9.0D && d0 <= 16.0D ? (!leaper.onGround ? false : leaper.getRNG().nextInt(2) == 0) : false;
 		}
 	}

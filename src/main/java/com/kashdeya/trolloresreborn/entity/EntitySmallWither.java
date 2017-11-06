@@ -132,7 +132,15 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		setInvulTime(compound.getInteger("Invul"));
+        if(hasCustomName())
+        	bossInfo.setName(this.getDisplayName());
 	}
+
+	@Override
+    public void setCustomNameTag(String name) {
+        super.setCustomNameTag(name);
+        bossInfo.setName(this.getDisplayName());
+    }
 
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -277,7 +285,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 					if (k1 > 0) {
 						Entity entity = getEntityWorld().getEntityByID(k1);
 
-						if (entity != null && entity.isEntityAlive() && getDistanceSqToEntity(entity) <= 900.0D && canEntityBeSeen(entity)) {
+						if (entity != null && entity.isEntityAlive() && getDistanceSq(entity) <= 900.0D && canEntityBeSeen(entity)) {
 							if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
 								updateWatchedTargetId(i, 0);
 							} else {

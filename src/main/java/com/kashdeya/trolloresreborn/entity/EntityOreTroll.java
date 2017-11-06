@@ -52,7 +52,6 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public EntityOreTroll(World world) {
 		super(world);
 		setSize(0.9F, 0.9F);
-		isImmuneToFire = true;
 		experienceValue = ConfigHandler.TROLL_EXP_DROPS;
 		inventory = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	}
@@ -88,14 +87,14 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 
 	@Override
 	protected PathNavigate createNavigator(World worldIn) {
-		return new PathNavigateClimber(this, worldIn);
+		return ConfigHandler.TROLL_CLIMBING_AI ? new PathNavigateClimber(this, worldIn) : super.createNavigator(worldIn);
 	}
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 		if (!getEntityWorld().isRemote)
-			setBesideClimbableBlock(isCollidedHorizontally);
+			setBesideClimbableBlock(collidedHorizontally);
 	}
 
 	@Override
@@ -128,7 +127,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 			climingState = (byte) (climingState | 1);
 		else
 			climingState = (byte) (climingState & -2);
-		dataManager.set(CLIMBING, Byte.valueOf(climingState));
+		dataManager.set(CLIMBING, ConfigHandler.TROLL_CLIMBING_AI ? Byte.valueOf(climingState) : 0);
 	}
 
 	@Override
