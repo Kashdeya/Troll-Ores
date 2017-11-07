@@ -1,3 +1,2 @@
-tile.troll_ore.name=Troll Ore
-entity.tor.Ore-Troll.name=Ore Troll
-entity.tor.Small-Wither.name=Troll Ore Wither
+entity.Ore-Troll.name=Ore Troll
+entity.Small-Wither.name=Troll Ore Wither

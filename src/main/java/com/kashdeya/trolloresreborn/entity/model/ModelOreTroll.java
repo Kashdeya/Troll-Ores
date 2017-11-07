@@ -282,7 +282,7 @@ public class ModelOreTroll extends ModelBase {
 
 		ItemStack stack = entity.getHeldItemMainhand();
 
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			right_finger_in.rotateAngleX = 0.8235987755982988F;
 			right_finger_out.rotateAngleX = 0.8235987755982988F;
 			right_thumb.rotateAngleZ = 0.9981317007977318F;

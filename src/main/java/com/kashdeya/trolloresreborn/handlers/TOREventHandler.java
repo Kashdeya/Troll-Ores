@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
 import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
@@ -56,7 +55,7 @@ public class TOREventHandler {
 				}
 			}
 
-			if(flag && (event.getState().getBlock() == TrollOresReborn.TROLL_ORE || event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F)))
+			if(flag &&  event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
 			{
 				Random rand = new Random();
 				int low = 0;
@@ -72,7 +71,7 @@ public class TOREventHandler {
 						
 						ItemStack stack = new ItemStack(catchFuckingShitMojangIdeasThatCanEasilyBeDoneBetter(event.getState().getBlock()), 1, blockMeta);
 
-						if (stack != null) {
+						if (!stack.isEmpty()) {
 							ItemStack stack2 = stack.copy();
 							if (stack.hasTagCompound())
 								stack2.setTagCompound(stack.getTagCompound());
@@ -84,7 +83,7 @@ public class TOREventHandler {
 								ItemStack stack4 = stack3.copy();
 								if (stack3.hasTagCompound())
 									stack4.setTagCompound(stack3.getTagCompound());
-								if(index > troll.inventory.length)
+								if(index > troll.inventory.size())
 									InventoryHelper.spawnItemStack(event.getWorld(), (int) event.getPos().getX(), (int) event.getPos().getY(), (int) event.getPos().getZ(), stack4);
 								else
 									troll.setContents(stack4, index);
@@ -92,7 +91,7 @@ public class TOREventHandler {
 							event.setDropChance(0F);
 						}
 
-						event.getWorld().spawnEntityInWorld(troll);
+						event.getWorld().spawnEntity(troll);
 						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
@@ -101,7 +100,7 @@ public class TOREventHandler {
 					EntitySmallWither wither = new EntitySmallWither(event.getWorld());
 					BlockPos pos = event.getPos();
 					wither.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-					event.getWorld().spawnEntityInWorld(wither);
+					event.getWorld().spawnEntity(wither);
 					wither.onInitialSpawn(event.getWorld().getDifficultyForLocation(wither.getPosition()), (IEntityLivingData) null);
 	        	}
 			}

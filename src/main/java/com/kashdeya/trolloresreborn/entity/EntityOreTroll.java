@@ -3,7 +3,7 @@ package com.kashdeya.trolloresreborn.entity;
 import javax.annotation.Nullable;
 
 import com.kashdeya.trolloresreborn.handlers.ConfigHandler;
-import com.kashdeya.trolloresreborn.init.TrollOresReborn;
+import com.kashdeya.trolloresreborn.init.ModSounds;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -24,9 +24,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -36,6 +36,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -47,12 +48,12 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	private static final DataParameter<Byte> EFFECT = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25, 27 };
-	public ItemStack[] inventory;
+	public NonNullList<ItemStack> inventory;
 	public EntityOreTroll(World world) {
 		super(world);
 		setSize(0.9F, 0.9F);
-		experienceValue = 10;
-		inventory = new ItemStack[27];
+		experienceValue = ConfigHandler.TROLL_EXP_DROPS;
+		inventory = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -85,20 +86,20 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	}
 
 	@Override
-	protected PathNavigate getNewNavigator(World worldIn) {
-		return new PathNavigateClimber(this, worldIn);
+	protected PathNavigate createNavigator(World worldIn) {
+		return ConfigHandler.TROLL_CLIMBING_AI ? new PathNavigateClimber(this, worldIn) : super.createNavigator(worldIn);
 	}
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if (!worldObj.isRemote)
-			setBesideClimbableBlock(isCollidedHorizontally);
+		if (!getEntityWorld().isRemote)
+			setBesideClimbableBlock(collidedHorizontally);
 	}
 
 	@Override
 	protected boolean canDespawn() {
-		if(getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null)
+		if(!getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty())
 			return false;
 		else
 			return true;
@@ -107,8 +108,8 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	@Override
 	protected void dropFewItems(boolean recentlyHit, int looting) {
 		for (ItemStack is : inventory)
-			if (is != null)
-				InventoryHelper.spawnItemStack(worldObj, (int) posX, (int) posY, (int) posZ, is);
+			if (!is.isEmpty())
+				InventoryHelper.spawnItemStack(getEntityWorld(), (int) posX, (int) posY, (int) posZ, is);
 	}
 
 	@Override
@@ -126,7 +127,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 			climingState = (byte) (climingState | 1);
 		else
 			climingState = (byte) (climingState & -2);
-		dataManager.set(CLIMBING, Byte.valueOf(climingState));
+		dataManager.set(CLIMBING, ConfigHandler.TROLL_CLIMBING_AI ? Byte.valueOf(climingState) : 0);
 	}
 
 	@Override
@@ -148,26 +149,26 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 
 		if (source instanceof EntityDamageSourceIndirect && ConfigHandler.TROLL_IMMUNE_TO_PROJECTILE_DAMAGE) {
-			worldObj.playSound((EntityPlayer) null, posX, posY, posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundCategory.HOSTILE, 2.5F, 3F);
+			getEntityWorld().playSound((EntityPlayer) null, posX, posY, posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundCategory.HOSTILE, 2.5F, 3F);
 			return false;
 		}
 
-		else if ((source == DamageSource.onFire || source == DamageSource.inFire || source == DamageSource.lava || source == DamageSource.hotFloor) && ConfigHandler.TROLL_IMMUNE_TO_FIRE_DAMAGE)
+		else if ((source == DamageSource.ON_FIRE || source == DamageSource.IN_FIRE || source == DamageSource.LAVA || source == DamageSource.HOT_FLOOR) && ConfigHandler.TROLL_IMMUNE_TO_FIRE_DAMAGE)
 			return false;
 
-		else if (source == DamageSource.inWall && ConfigHandler.TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE)
+		else if (source == DamageSource.IN_WALL && ConfigHandler.TROLL_IMMUNE_TO_SUFFOCATION_DAMAGE)
 			return false;
 
-		else if (source == DamageSource.fall && ConfigHandler.TROLL_IMMUNE_TO_FALL_DAMAGE)
+		else if (source == DamageSource.FALL && ConfigHandler.TROLL_IMMUNE_TO_FALL_DAMAGE)
 			return false;
 
-		else if (source == DamageSource.fallingBlock && ConfigHandler.TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE)
+		else if (source == DamageSource.FALLING_BLOCK && ConfigHandler.TROLL_IMMUNE_TO_FALLING_BLOCK_DAMAGE)
 			return false;
 
-		else if (source == DamageSource.cactus && ConfigHandler.TROLL_IMMUNE_TO_CACTUS_DAMAGE)
+		else if (source == DamageSource.CACTUS && ConfigHandler.TROLL_IMMUNE_TO_CACTUS_DAMAGE)
 			return false;
 
-		else if(!(source.getSourceOfDamage() instanceof EntityPlayer) && ConfigHandler.TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE)
+		else if(!(source.getTrueSource() instanceof EntityPlayer) && ConfigHandler.TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE)
 			return false;
 
 		return super.attackEntityFrom(source, damage);
@@ -207,37 +208,37 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	}
 
 	public EntityOreTroll setContents(ItemStack stack, int index) {
-		inventory[index] = stack.copy();
+		inventory.set(index, stack.copy());
 		return this;
 	}
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound nbt) {
-		super.writeEntityToNBT(nbt);
-		nbt.setByte("effect", getPotionEffect());
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++)
-			if (inventory[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		nbt.setTag("Items", nbttaglist);
+	public int getSizeInventory() {
+		return inventory.size();
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbt) {
-		super.readEntityFromNBT(nbt);
-		setPotionEffect(nbt.getByte("effect"));
-		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-		inventory = new ItemStack[27];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			byte b0 = nbttagcompound1.getByte("Slot");
-			if (b0 >= 0 && b0 < inventory.length)
-				inventory[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-		}
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		setPotionEffect(compound.getByte("effect"));
+		this.loadFromNbt(compound);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		compound.setByte("effect", getPotionEffect());
+		return this.saveToNbt(compound);
+	}
+	
+	public void loadFromNbt(NBTTagCompound compound) {
+		inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+		if (compound.hasKey("Items", 9))
+			ItemStackHelper.loadAllItems(compound, inventory);
+	}
+
+	public NBTTagCompound saveToNbt(NBTTagCompound compound) {
+		ItemStackHelper.saveAllItems(compound, inventory, false);
+		return compound;
 	}
 
 	@Override
@@ -252,17 +253,17 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return TrollOresReborn.TROLL_LIVING;
+		return ModSounds.TROLL_LIVING;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
-		return TrollOresReborn.TROLL_HURT;
+	protected SoundEvent getHurtSound(DamageSource damage) {
+		return ModSounds.TROLL_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return TrollOresReborn.TROLL_DEATH;
+		return ModSounds.TROLL_DEATH;
 	}
 
 	@Override
