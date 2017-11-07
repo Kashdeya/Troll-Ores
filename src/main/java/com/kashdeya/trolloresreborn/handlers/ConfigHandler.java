@@ -36,7 +36,6 @@ public class ConfigHandler {
 	public static float TROLL_HEALTH;
 	public static float TROLL_ATTACK_DAMAGE;
 	public static float WITHER_HEALTH;
-	public static float WITHER_ATTACK_DAMAGE;
 	public static float WITHER_FOLLOW_RANGE;
 	public static float WITHER_ARMOUR;
 	public static boolean WITHER_FIRE;
@@ -102,7 +101,6 @@ public class ConfigHandler {
         SILENT_WITHER = CONFIG.getBoolean("Wither Silent", "TOR-Wither", false, "Make Small Wither Silent!");
         WITHER_NAME = CONFIG.getStringList("Wither Name", "TOR-Wither", new String[] { "Kashdeya", "Prince of Darkness", "Bam & Dlast", "Jordaaaaaaaaaaaaan!", "Mini Kahann", "Baby Bams", "5 Head - 2" }, "Allows you to change the name of the Wither!");
         WITHER_HEALTH = CONFIG.getFloat("Wither Health", "TOR-Wither", 50F, 1F, Float.MAX_VALUE, "Allows you to change the Max Health of the Small Wither!");
-        WITHER_ATTACK_DAMAGE = CONFIG.getFloat("Wither Attack Damage", "TOR-Wither", 2F, 1F, Float.MAX_VALUE, "Allows you to change the Attack Damage of the Small Wither!");
         WITHER_FOLLOW_RANGE = CONFIG.getFloat("Wither Follow Distance", "TOR-Wither", 40F, 8F, Float.MAX_VALUE, "Allows you to change the Follow Distance of the Small Wither!");
         WITHER_ARMOUR = CONFIG.getFloat("Wither Armor", "TOR-Wither", 4F, 0F, Float.MAX_VALUE, "Allows you to change the Armor of the Small Wither!");
         WITHER_EXP_DROPS = CONFIG.getInt("Wither Experience Drop", "TOR-Wither", 20, 0, Integer.MAX_VALUE, "How much Exp the TOR Wither Drops!");

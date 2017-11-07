@@ -88,7 +88,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double) ConfigHandler.WITHER_HEALTH);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6000000238418579D);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double) ConfigHandler.WITHER_FOLLOW_RANGE);
-		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double) ConfigHandler.WITHER_ATTACK_DAMAGE);
+		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double) ConfigHandler.WITHER_ARMOUR);
 	}
 
 	@Override
