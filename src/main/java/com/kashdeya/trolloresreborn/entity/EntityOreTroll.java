@@ -94,7 +94,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	public void onUpdate() {
 		super.onUpdate();
 		if (!getEntityWorld().isRemote)
-			setBesideClimbableBlock(collidedHorizontally);
+			setBesideClimbableBlock(isCollidedHorizontally);
 	}
 
 	@Override

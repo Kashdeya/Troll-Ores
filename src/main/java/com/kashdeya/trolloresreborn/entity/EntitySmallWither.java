@@ -284,7 +284,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 					if (k1 > 0) {
 						Entity entity = getEntityWorld().getEntityByID(k1);
 
-						if (entity != null && entity.isEntityAlive() && getDistanceSq(entity) <= 900.0D && canEntityBeSeen(entity)) {
+						if (entity != null && entity.isEntityAlive() && getDistanceSqToEntity(entity) <= 900.0D && canEntityBeSeen(entity)) {
 							if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
 								updateWatchedTargetId(i, 0);
 							} else {
