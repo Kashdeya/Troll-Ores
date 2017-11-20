@@ -102,6 +102,8 @@ public class TOREventHandler {
 					wither.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
 					event.getWorld().spawnEntity(wither);
 					wither.onInitialSpawn(event.getWorld().getDifficultyForLocation(wither.getPosition()), (IEntityLivingData) null);
+					if(!(event.getHarvester() instanceof FakePlayer))
+						wither.setAttackTarget(event.getHarvester());
 	        	}
 			}
 		}
