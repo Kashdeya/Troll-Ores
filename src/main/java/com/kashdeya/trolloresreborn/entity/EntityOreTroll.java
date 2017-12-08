@@ -47,7 +47,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnData {
 	private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
 	private static final DataParameter<Byte> EFFECT = EntityDataManager.<Byte>createKey(EntityOreTroll.class, DataSerializers.BYTE);
-	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 18, 19, 20, 25, 27 };
+	public final byte[] POTION_IDS = new byte[] { 2, 4, 9, 15, 17, 19, 20, 25, 27 };//2=Slowness, 4=Mining Fatigue, 9=Nausea, 15=Blindness, 17=Hunger, 19=Posion, 20=Wither, 25=Levitation, 27=Bad Luck 
 	public NonNullList<ItemStack> inventory;
 	public EntityOreTroll(World world) {
 		super(world);
