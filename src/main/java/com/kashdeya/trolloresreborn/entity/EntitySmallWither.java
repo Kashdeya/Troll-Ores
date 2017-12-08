@@ -23,7 +23,6 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,7 +75,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	public EntitySmallWither(World world) {
 		super(world);
 		setHealth(getMaxHealth());
-		setSize(0.3F, 0.9F);
+		setSize(0.9F, 1.0F);
 		isImmuneToFire = ConfigHandler.WITHER_FIRE;
 		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		experienceValue = ConfigHandler.WITHER_EXP_DROPS;
@@ -100,12 +99,11 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	protected void initEntityAI() {
 		tasks.addTask(0, new EntitySmallWither.AIDoNothing());
 		tasks.addTask(1, new EntityAISwimming(this));
-		tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 40, 20.0F));
-		tasks.addTask(5, new EntityAIWander(this, 1.0D));
-		tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(7, new EntityAILookIdle(this));
+		tasks.addTask(2, new EntityAIAttackRanged(this, 1.0D, 60, 10.0F));
+		tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(3, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, false, NOT_UNDEAD));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 	}
 
 	@Override
@@ -164,7 +162,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			Entity entity = getEntityWorld().getEntityByID(getWatchedTargetId(0));
 
 			if (entity != null) {
-				if (posY < entity.posY || !isArmored() && posY < entity.posY + 5.0D) {
+				if (posY < entity.posY || !isArmored() && posY < entity.posY + 1.0D) {
 					if (motionY < 0.0D) {
 						motionY = 0.0D;
 					}
