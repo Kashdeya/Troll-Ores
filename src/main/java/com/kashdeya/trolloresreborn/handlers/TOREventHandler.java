@@ -7,7 +7,9 @@ import com.kashdeya.trolloresreborn.entity.EntitySmallWither;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryHelper;
@@ -92,6 +94,7 @@ public class TOREventHandler {
 						}
 
 						event.getWorld().spawnEntity(troll);
+						breakSurroundingBlocks(event.getWorld(), event.getHarvester(), troll);
 						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
@@ -108,7 +111,24 @@ public class TOREventHandler {
 			}
 		}
 	}
-	
+
+	private void breakSurroundingBlocks(World world, EntityPlayer player, EntityOreTroll troll) {
+		if (!player.isCreative() && !player.isSpectator()) {
+			BlockPos trollPos = troll.getPosition();
+			for (int x = -1; x < 2; x++)
+				for (int y = -1; y < 2; y++)
+					for (int z = -1; z < 2; z++) {
+						IBlockState state = world.getBlockState(trollPos.add(x, y, z));
+						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < 50 && state.getBlock() != Blocks.BEDROCK) {
+							world.destroyBlock(trollPos.add(x, y, z), true);
+							if (state != null && state != Blocks.AIR)
+								world.playEvent(null, 2001, new BlockPos(trollPos.add(x, y, z)), Block.getIdFromBlock(state.getBlock()));
+							world.notifyNeighborsOfStateChange(trollPos.add(x, y, z), state.getBlock(), true);
+						}
+					}
+		}
+	}
+
 	final Block catchFuckingShitMojangIdeasThatCanEasilyBeDoneBetter(Block block) {
 		if (block == Blocks.LIT_REDSTONE_ORE) {
 			block = Blocks.REDSTONE_ORE;
