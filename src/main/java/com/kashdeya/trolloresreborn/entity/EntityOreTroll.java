@@ -80,7 +80,7 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)ConfigHandler.TROLL_ATTACK_DAMAGE);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23000000417232513D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)ConfigHandler.TROLL_SPEED);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double)ConfigHandler.TROLL_FOLLOW_RANGE);
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)ConfigHandler.TROLL_HEALTH);
 	}
@@ -166,6 +166,9 @@ public class EntityOreTroll extends EntityMob implements IEntityAdditionalSpawnD
 			return false;
 
 		else if (source == DamageSource.CACTUS && ConfigHandler.TROLL_IMMUNE_TO_CACTUS_DAMAGE)
+			return false;
+		
+		else if (source == DamageSource.DROWN && ConfigHandler.TROLL_IMMUNE_TO_DROWN_DAMAGE)
 			return false;
 
 		else if(!(source.getTrueSource() instanceof EntityPlayer) && ConfigHandler.TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE)

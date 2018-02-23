@@ -75,7 +75,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	public EntitySmallWither(World world) {
 		super(world);
 		setHealth(getMaxHealth());
-		setSize(0.9F, 1.0F);
+		setSize(1.2F, 1.5F);
 		isImmuneToFire = ConfigHandler.WITHER_FIRE;
 		((PathNavigateGround) getNavigator()).setCanSwim(true);
 		experienceValue = ConfigHandler.WITHER_EXP_DROPS;
@@ -85,7 +85,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double) ConfigHandler.WITHER_HEALTH);
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6000000238418579D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)ConfigHandler.WITHER_SPEED);
 		getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue((double) ConfigHandler.WITHER_FOLLOW_RANGE);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue((double) ConfigHandler.WITHER_ARMOUR);
 	}
@@ -244,7 +244,7 @@ public class EntitySmallWither extends EntityMob implements IRangedAttackMob {
 			int j1 = getInvulTime() - 1;
 
 			if (j1 <= 0) {
-				getEntityWorld().newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, 7.0F, false, getEntityWorld().getGameRules().getBoolean("mobGriefing"));
+				getEntityWorld().newExplosion(this, posX, posY + (double) getEyeHeight(), posZ, ConfigHandler.WITHER_EXPLOSION, false, getEntityWorld().getGameRules().getBoolean("mobGriefing"));
 				getEntityWorld().playBroadcastSound(1023, new BlockPos(this), 0);
 			}
 

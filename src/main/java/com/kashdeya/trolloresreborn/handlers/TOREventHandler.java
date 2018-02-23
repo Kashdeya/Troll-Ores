@@ -57,14 +57,14 @@ public class TOREventHandler {
 				}
 			}
 
-			if(flag &&  event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
+			if(flag && event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
 			{
 				Random rand = new Random();
 				int low = 0;
 				int high = 100;
 				int results = rand.nextInt(high-low) + low;
 
-				if ((results  <= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
+				if ((ConfigHandler.TROLL_PRECENT  > results) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
 	        	{
 					for (int i = 0; i < ConfigHandler.TROLL_SPAWN; i++) {
 						EntityOreTroll troll = new EntityOreTroll(event.getWorld());
@@ -98,7 +98,7 @@ public class TOREventHandler {
 						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
-				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
+				else if ((results > ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
 	        	{
 					EntitySmallWither wither = new EntitySmallWither(event.getWorld());
 					BlockPos pos = event.getPos();
@@ -119,7 +119,7 @@ public class TOREventHandler {
 				for (int y = -1; y < 2; y++)
 					for (int z = -1; z < 2; z++) {
 						IBlockState state = world.getBlockState(trollPos.add(x, y, z));
-						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < 50 && state.getBlock() != Blocks.BEDROCK) {
+						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < ConfigHandler.BLOCK_HARDNESS && state.getBlock() != Blocks.BEDROCK) {
 							world.destroyBlock(trollPos.add(x, y, z), true);
 							if (state != null && state != Blocks.AIR)
 								world.playEvent(null, 2001, new BlockPos(trollPos.add(x, y, z)), Block.getIdFromBlock(state.getBlock()));
