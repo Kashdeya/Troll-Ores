@@ -1,5 +1,6 @@
 package com.kashdeya.trolloresreborn.handlers;
 
+import java.util.List;
 import java.util.Random;
 
 import com.kashdeya.trolloresreborn.entity.EntityOreTroll;
@@ -120,13 +121,22 @@ public class TOREventHandler {
 					for (int z = -1; z < 2; z++) {
 						IBlockState state = world.getBlockState(trollPos.add(x, y, z));
 						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < ConfigHandler.BLOCK_HARDNESS && state.getBlock() != Blocks.BEDROCK) {
-							world.destroyBlock(trollPos.add(x, y, z), true);
-							if (state != null && state != Blocks.AIR)
-								world.playEvent(null, 2001, new BlockPos(trollPos.add(x, y, z)), Block.getIdFromBlock(state.getBlock()));
-							world.notifyNeighborsOfStateChange(trollPos.add(x, y, z), state.getBlock(), true);
+							if (state != null && state != Blocks.AIR) {
+								world.playEvent(null, 2001, trollPos.add(x, y, z), Block.getIdFromBlock(state.getBlock()));
+								dropStuffs(world, trollPos.add(x, y, z), state);
+						        world.setBlockToAir(trollPos.add(x, y, z));
+								world.notifyNeighborsOfStateChange(trollPos.add(x, y, z), state.getBlock(), true);
+							}
 						}
 					}
 		}
+	}
+
+	public void dropStuffs(World world, BlockPos pos, IBlockState state) {
+        Block block = state.getBlock();
+        List<ItemStack> drops = block.getDrops(world, pos, state, 0);
+        for (ItemStack drop : drops)
+        	block.spawnAsEntity(world, pos, drop);
 	}
 
 	final Block catchFuckingShitMojangIdeasThatCanEasilyBeDoneBetter(Block block) {
