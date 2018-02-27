@@ -74,7 +74,7 @@ public class ConfigHandler {
         FAKE_PLAYERS = CONFIG.getBoolean("Enable Fake Players", "TOR-Main Settings", false, "Enable machines acting as player to trigger Troll Ores!");
         FORTUNE_MULTIPLIER = CONFIG.getBoolean("Fortune Multiplier", "TOR-Main Settings", true, "Fortune enchantments multiply the chance of triggering a Troll ore!");
         SILK_IMMUNITY = CONFIG.getBoolean("Silk Touch Immunity", "TOR-Main Settings", true, "Using silk touch on ores prevents triggering Troll Ores!");
-        BLOCK_HARDNESS = CONFIG.getInt("Set Block Break Hardness Level", "TOR-Main Settings", 2000, 0, 2000, "Set the Block Hardness of blocks that Ore Trolls can break on spawn.\n[Any block with a Hardness under this number will break on spawn]\n[Obsidian is 2000]");
+        BLOCK_HARDNESS = CONFIG.getInt("Set Block Break Hardness Level", "TOR-Main Settings", 2000, 0, 2000, "Set the Block Hardness of blocks that drop when Ore Trolls spawn.\n[Any block with a Hardness under this number will break and drop on troll spawn]\n[Obsidian is 2000]");
 
         // Ore Troll
         CONFIG.addCustomCategoryComment("TOR-Ore Troll", "");
@@ -100,7 +100,7 @@ public class ConfigHandler {
         TROLL_IMMUNE_TO_NON_PLAYER_DAMAGE = CONFIG.getBoolean("Ore Troll Only Damaged By Players", "TOR-Ore Troll", false, "Make Ore Trolls Immune to all non-Player Damage!");
         TROLL_EXP_DROPS = CONFIG.getInt("Ore Troll Experience Drop", "TOR-Ore Troll", 10, 0, Integer.MAX_VALUE, "How much Exp the Ore Trolls Drops!");
         TROLL_CLIMBING_AI = CONFIG.getBoolean("Ore Troll Can Climb Like Spiders", "TOR-Ore Troll", true, "Make Ore Trolls Climb Like Spiders!");
-        TROLL_SPEED = CONFIG.getFloat("Ore Troll Speed", "TOR-Ore Troll", 0.23000000417232513F, 0.0F, Float.MAX_VALUE, "Allows you to change the Speed of the Troll!");
+        TROLL_SPEED = CONFIG.getFloat("Ore Troll Speed", "TOR-Ore Troll", 0.23000000417F, 0.0F, Float.MAX_VALUE, "Allows you to change the Speed of the Troll!");
 
         // Wither
         CONFIG.addCustomCategoryComment("TOR-Wither", "");
@@ -113,7 +113,7 @@ public class ConfigHandler {
         WITHER_ARMOUR = CONFIG.getFloat("Wither Armor", "TOR-Wither", 4F, 0F, Float.MAX_VALUE, "Allows you to change the Armor of the Small Wither!");
         WITHER_EXP_DROPS = CONFIG.getInt("Wither Experience Drop", "TOR-Wither", 20, 0, Integer.MAX_VALUE, "How much Exp the TOR Wither Drops!");
         WITHER_FIRE = CONFIG.getBoolean("Wither Immune To Fire", "TOR-Wither", true, "Allows Wither to be Immune to fire!");
-        WITHER_SPEED = CONFIG.getFloat("Wither Speed", "TOR-Wither", 0.6000000238418579F, 0.0F, Float.MAX_VALUE, "Allows you to change the Speed of the TOR Wither!");
+        WITHER_SPEED = CONFIG.getFloat("Wither Speed", "TOR-Wither", 0.60000002384F, 0.0F, Float.MAX_VALUE, "Allows you to change the Speed of the TOR Wither!");
         WITHER_EXPLOSION = CONFIG.getFloat("Wither Explosion Strength", "TOR-Wither", 7.0F, 1.0F, Float.MAX_VALUE, "Allows you to change the Strength of the TOR Wither explosion!");
         
 		if (CONFIG.hasChanged())

@@ -65,7 +65,7 @@ public class TOREventHandler {
 				int high = 100;
 				int results = rand.nextInt(high-low) + low;
 
-				if ((ConfigHandler.TROLL_PRECENT  > results) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
+				if ((ConfigHandler.TROLL_PRECENT > results) && event.getWorld().getGameRules().getBoolean("doTileDrops"))
 	        	{
 					for (int i = 0; i < ConfigHandler.TROLL_SPAWN; i++) {
 						EntityOreTroll troll = new EntityOreTroll(event.getWorld());
@@ -99,7 +99,7 @@ public class TOREventHandler {
 						troll.onInitialSpawn(event.getWorld().getDifficultyForLocation(troll.getPosition()), (IEntityLivingData) null);
 					}
 				}
-				else if ((results > ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
+				else if ((results >= ConfigHandler.TROLL_PRECENT) && event.getWorld().getGameRules().getBoolean("doTileDrops") && ConfigHandler.ENABLE_WITHER)
 	        	{
 					EntitySmallWither wither = new EntitySmallWither(event.getWorld());
 					BlockPos pos = event.getPos();
