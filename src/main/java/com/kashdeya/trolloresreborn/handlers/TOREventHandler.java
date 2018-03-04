@@ -120,7 +120,7 @@ public class TOREventHandler {
 				for (int y = -1; y < 2; y++)
 					for (int z = -1; z < 2; z++) {
 						IBlockState state = world.getBlockState(trollPos.add(x, y, z));
-						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < ConfigHandler.BLOCK_HARDNESS && state.getBlock() != Blocks.BEDROCK) {
+						if (trollPos.add(x, y, z) != trollPos.add(0, 1, 0) && state.getBlockHardness(world, trollPos.add(x, y, z)) < ConfigHandler.BLOCK_HARDNESS && state.getBlock() != Blocks.BEDROCK || !state.getBlock().hasTileEntity(state)) {
 							if (state != null && state != Blocks.AIR) {
 								world.playEvent(null, 2001, trollPos.add(x, y, z), Block.getIdFromBlock(state.getBlock()));
 								dropStuffs(world, trollPos.add(x, y, z), state);
