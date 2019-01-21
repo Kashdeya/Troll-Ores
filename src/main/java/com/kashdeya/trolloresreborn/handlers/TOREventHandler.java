@@ -22,12 +22,12 @@ import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TOREventHandler {
-	
+
 	public World lastWorld;
 	public int lastX = 0;
 	public int lastY = 0;
 	public int lastZ = 0;
-	
+
 	@SubscribeEvent
 	public void onHarvest(HarvestDropsEvent event)
 	{
@@ -35,17 +35,18 @@ public class TOREventHandler {
 		{
 			return;
 		}
-		
+
 		String blockID = Block.REGISTRY.getNameForObject(event.getState().getBlock()).toString();
 		int blockMeta = event.getState().getBlock().getMetaFromState(event.getState());
 		boolean custom = ConfigHandler.EXTRA_ORES.contains(blockID) || ConfigHandler.EXTRA_ORES.contains(blockID + ":" + blockMeta);
-		
+		boolean blacklist = ConfigHandler.BLACKLIST_ORES.contains(blockID) || ConfigHandler.BLACKLIST_ORES.contains(blockID + ":" + blockMeta);
+
 		if(!event.getWorld().isRemote && event.getHarvester() != null && (ConfigHandler.FAKE_PLAYERS || !(event.getHarvester() instanceof FakePlayer)))
 		{
 			String[] nameParts = event.getState().getBlock().getUnlocalizedName().split("\\.");
-			
+
 			boolean flag = event.getState().getBlock() instanceof BlockOre || custom;
-			
+
 			if(!flag)
 			{
 				for(String part : nameParts)
@@ -58,7 +59,7 @@ public class TOREventHandler {
 				}
 			}
 
-			if(flag && event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
+			if(!blacklist && flag && event.getWorld().rand.nextFloat() < ConfigHandler.CHANCE * (ConfigHandler.FORTUNE_MULTIPLIER ? event.getFortuneLevel() + 1F : 1F))
 			{
 				Random rand = new Random();
 				int low = 0;
@@ -71,7 +72,7 @@ public class TOREventHandler {
 						EntityOreTroll troll = new EntityOreTroll(event.getWorld());
 						BlockPos pos = event.getPos();
 						troll.setPosition(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-						
+
 						ItemStack stack = new ItemStack(catchFuckingShitMojangIdeasThatCanEasilyBeDoneBetter(event.getState().getBlock()), 1, blockMeta);
 
 						if (!stack.isEmpty()) {
