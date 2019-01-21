@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ConfigHandler {
-	
+
 	public static final ConfigHandler INSTANCE = new ConfigHandler();
 	public Configuration CONFIG;
 	public static final File CONFIG_DIR = new File("config/trolloresreborn");
@@ -22,6 +22,7 @@ public class ConfigHandler {
 	public static float CHANCE;
 	public static int TROLL_SPAWN;
 	public static ArrayList<String> EXTRA_ORES = new ArrayList<String>();
+	public static ArrayList<String> BLACKLIST_ORES = new ArrayList<String>();
 	public static boolean ENABLE_WITHER;
 	public static int TROLL_PRECENT;
 	public static boolean SILENT_TROLL;
@@ -57,19 +58,21 @@ public class ConfigHandler {
 	public static float WITHER_EXPLOSION;
 	public static boolean TROLL_IMMUNE_TO_DROWN_DAMAGE;
 	public static int BLOCK_HARDNESS;
-	
+
 	public void loadConfig(FMLPreInitializationEvent event) {
 		CONFIG = new Configuration(new File(CONFIG_DIR, "Troll Ores Reborn.cfg"));
 		CONFIG.load();
 		syncConfigs();
 	}
-	
+
 	private void syncConfigs() {
 
         // Troll Ores
 		CONFIG.addCustomCategoryComment("TOR-Main Settings", "");
         EXTRA_ORES.clear();
         EXTRA_ORES.addAll(Arrays.asList(CONFIG.getStringList("Extra Ores", "TOR-Main Settings", new String[]{}, "Additional blocks that should be treated as 'Troll Ores'.. EXAMPLE = 'minecraft:dirt'")));
+		BLACKLIST_ORES.clear();
+        BLACKLIST_ORES.addAll(Arrays.asList(CONFIG.getStringList("Blacklist Ores", "TOR-Main Settings", new String[]{}, "Blocks that should NOT be treated as 'Troll Ores'.. EXAMPLE = 'minecraft:dirt'")));
         CHANCE = CONFIG.getFloat("Chance of Troll Ore", "TOR-Main Settings", 0.1F, 0.0F, 1.0F, "Chance a random Ore will be a Troll.\nDefault is 10%");
         FAKE_PLAYERS = CONFIG.getBoolean("Enable Fake Players", "TOR-Main Settings", false, "Enable machines acting as player to trigger Troll Ores!");
         FORTUNE_MULTIPLIER = CONFIG.getBoolean("Fortune Multiplier", "TOR-Main Settings", true, "Fortune enchantments multiply the chance of triggering a Troll ore!");
@@ -115,7 +118,7 @@ public class ConfigHandler {
         WITHER_FIRE = CONFIG.getBoolean("Wither Immune To Fire", "TOR-Wither", true, "Allows Wither to be Immune to fire!");
         WITHER_SPEED = CONFIG.getFloat("Wither Speed", "TOR-Wither", 0.60000002384F, 0.0F, Float.MAX_VALUE, "Allows you to change the Speed of the TOR Wither!");
         WITHER_EXPLOSION = CONFIG.getFloat("Wither Explosion Strength", "TOR-Wither", 7.0F, 1.0F, Float.MAX_VALUE, "Allows you to change the Strength of the TOR Wither explosion!");
-        
+
 		if (CONFIG.hasChanged())
 			CONFIG.save();
 	}
